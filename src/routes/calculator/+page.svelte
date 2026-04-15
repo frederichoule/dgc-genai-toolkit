@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
 	import { ChevronDown, FileText, Image, Music, PlaySquare } from 'lucide-svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Pill from '$lib/components/Pill.svelte';
@@ -53,7 +52,7 @@
 			What does your AI task cost?
 		</h1>
 
-		<div class="mt-12 space-y-8">
+		<div class="mt-12">
 			<div class="space-y-4">
 				<p class="text-sm text-text-tertiary">Select what you want to generate:</p>
 				<div class="flex flex-wrap gap-x-3 gap-y-2">
@@ -72,88 +71,130 @@
 				</div>
 			</div>
 
-			{#if selectedTask}
-				{#key selectedTask}
-					<div class="space-y-8" transition:slide={{ duration: 300 }}>
-						{#if selectedTask === 'summary'}
-							<Input
-								id="pages-to-read"
-								label="Pages to read"
-								type="number"
-								min={1}
-								bind:value={pagesToRead}
-							/>
-							<Select
-								id="use-reasoning"
-								label="Use a reasoning model?"
-								bind:value={useReasoning}
-								options={[
-									{ value: 'with', label: 'With a reasoning model' },
-									{ value: 'without', label: 'Without a reasoning model' }
-								]}
-							/>
-						{:else if selectedTask === 'image'}
-							<Input
-								id="image-attempts"
-								label="Attempts / iterations"
-								type="number"
-								min={1}
-								bind:value={imageAttempts}
-							/>
-						{:else if selectedTask === 'video'}
-							<Input
-								id="video-attempts"
-								label="Attempts / iterations"
-								type="number"
-								min={1}
-								bind:value={videoAttempts}
-							/>
-							<Input
-								id="video-duration"
-								label="Duration (seconds)"
-								type="number"
-								min={1}
-								bind:value={videoDuration}
-							/>
-						{:else if selectedTask === 'audio'}
-							<Input
-								id="audio-attempts"
-								label="Attempts / iterations"
-								type="number"
-								min={1}
-								bind:value={audioAttempts}
-							/>
-							<Input
-								id="audio-duration"
-								label="Duration (seconds)"
-								type="number"
-								min={1}
-								bind:value={audioDuration}
-							/>
-						{/if}
+			<div
+				class="grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+				style:grid-template-rows={selectedTask === 'summary' ? '1fr' : '0fr'}
+			>
+				<div class="min-h-0">
+					<div class="space-y-8 pt-8">
+						<Input
+							id="pages-to-read"
+							label="Pages to read"
+							type="number"
+							min={1}
+							bind:value={pagesToRead}
+						/>
+						<Select
+							id="use-reasoning"
+							label="Use a reasoning model?"
+							bind:value={useReasoning}
+							options={[
+								{ value: 'with', label: 'With a reasoning model' },
+								{ value: 'without', label: 'Without a reasoning model' }
+							]}
+						/>
 					</div>
-				{/key}
-
-				<div transition:slide={{ duration: 300 }}>
-					<button
-						type="button"
-						class="flex items-center gap-2 text-sm text-text-tertiary hover:text-text-primary"
-					>
-						Display advanced mode
-						<ChevronDown class="size-4" strokeWidth={1.75} />
-					</button>
 				</div>
-			{/if}
+			</div>
 
-			<Button variant="white" arrow fullWidth size="lg" disabled={selectedTask === null}>
-				Estimate your AI footprint
-			</Button>
-
-			{#if selectedTask}
-				<div transition:slide={{ duration: 300 }}>
-					<Button variant="outline" fullWidth onclick={reset}>Reset</Button>
+			<div
+				class="grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+				style:grid-template-rows={selectedTask === 'image' ? '1fr' : '0fr'}
+			>
+				<div class="min-h-0">
+					<div class="pt-8">
+						<Input
+							id="image-attempts"
+							label="Attempts / iterations"
+							type="number"
+							min={1}
+							bind:value={imageAttempts}
+						/>
+					</div>
 				</div>
-			{/if}
+			</div>
+
+			<div
+				class="grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+				style:grid-template-rows={selectedTask === 'video' ? '1fr' : '0fr'}
+			>
+				<div class="min-h-0">
+					<div class="space-y-8 pt-8">
+						<Input
+							id="video-attempts"
+							label="Attempts / iterations"
+							type="number"
+							min={1}
+							bind:value={videoAttempts}
+						/>
+						<Input
+							id="video-duration"
+							label="Duration (seconds)"
+							type="number"
+							min={1}
+							bind:value={videoDuration}
+						/>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+				style:grid-template-rows={selectedTask === 'audio' ? '1fr' : '0fr'}
+			>
+				<div class="min-h-0">
+					<div class="space-y-8 pt-8">
+						<Input
+							id="audio-attempts"
+							label="Attempts / iterations"
+							type="number"
+							min={1}
+							bind:value={audioAttempts}
+						/>
+						<Input
+							id="audio-duration"
+							label="Duration (seconds)"
+							type="number"
+							min={1}
+							bind:value={audioDuration}
+						/>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+				style:grid-template-rows={selectedTask ? '1fr' : '0fr'}
+			>
+				<div class="min-h-0">
+					<div class="pt-8">
+						<button
+							type="button"
+							class="flex items-center gap-2 text-sm text-text-tertiary hover:text-text-primary"
+						>
+							Display advanced mode
+							<ChevronDown class="size-4" strokeWidth={1.75} />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="pt-8">
+				<Button variant="white" arrow fullWidth size="lg" disabled={selectedTask === null}>
+					Estimate your AI footprint
+				</Button>
+			</div>
+
+			<div
+				class="grid overflow-hidden transition-[grid-template-rows] duration-500 ease-out"
+				style:grid-template-rows={selectedTask ? '1fr' : '0fr'}
+			>
+				<div class="min-h-0">
+					<div class="pt-4">
+						<Button variant="outline" fullWidth onclick={reset}>Reset</Button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>

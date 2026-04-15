@@ -1,0 +1,15 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"hello_world": "Hello, {name} from fr!",
+	"nav_about": "À propos",
+	"nav_calculator": "Calculateur",
+	"nav_guide": "Guide",
+	"nav_facts": "Faits",
+	"nav_faq": "FAQ",
+	"nav_glossary": "Glossaire",
+	"footer_eco_notice": "Ce site a été conçu et développé selon les principes du web durable. Le chargement de cette page a transféré {size} de données, générant environ {co2} de C02.",
+	"footer_calculated_with": "Calculé avec",
+	"footer_copyright": "Copyright {year} - DGC Green",
+	"footer_legals": "Mentions légales",
+	"footer_privacy": "Politique de confidentialité"
+}

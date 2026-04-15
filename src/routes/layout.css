@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@theme {
+	--color-background: #060e08;
+	--color-background-soft: #0b150f;
+
+	--color-text-primary: #ffffff;
+	--color-text-secondary: #e6e7e6;
+	--color-text-tertiary: #b4b7b5;
+
+	--color-brand-lime: #cff154;
+	--color-brand-mint: #a6edb4;
+	--color-brand-spring: #60d086;
+	--color-brand-forest: #30b354;
+
+	--font-sans: 'Figtree', system-ui, -apple-system, sans-serif;
+}
+
+body {
+	font-family: var(--font-sans);
+}

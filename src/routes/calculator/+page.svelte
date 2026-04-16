@@ -228,25 +228,25 @@
 		{
 			icon: PresentationIcon,
 			value: result ? (result.totalCo2Kg / co2Factor('Hours of video streaming')) * 60 : 0,
-			unit: 'min',
+			isTime: true,
 			label: 'of streaming'
 		},
 		{
 			icon: VideoCallIcon,
-			value: result ? result.totalCo2Kg / co2Factor('Hours of video conference') : 0,
-			unit: 'h',
+			value: result ? (result.totalCo2Kg / co2Factor('Hours of video conference')) * 60 : 0,
+			isTime: true,
 			label: 'of video call with 2 people'
 		},
 		{
 			icon: LightbulbIcon,
-			value: kwh / kwhFactor('LED bulb hours'),
-			unit: 'h',
+			value: (kwh / kwhFactor('LED bulb hours')) * 60,
+			isTime: true,
 			label: 'of LED light'
 		},
 		{
 			icon: MicrowaveIcon,
 			value: kwh / kwhFactor('Microwave minutes'),
-			unit: 'min',
+			isTime: true,
 			label: 'of microwave'
 		}
 	]);
@@ -521,11 +521,13 @@
 			class="w-full scroll-mt-28 lg:sticky lg:top-24 lg:self-start"
 			transition:fade={{ duration: 250 }}
 		>
-			<div class="rounded-3xl {panelColors[activeColor].bg} p-5 pb-1 text-background sm:p-6 sm:pb-2">
+			<div
+				class="rounded-3xl {panelColors[activeColor].bg} p-5 pb-1 text-background sm:p-6 sm:pb-2"
+			>
 				<p class="text-sm">Estimated emissions</p>
 				<p class="mt-0 flex items-baseline gap-2">
 					<span
-						class="inline-block text-8xl leading-none font-bold tracking-tight -mt-[0.3em] -mb-[0.2em] sm:text-9xl"
+						class="-mt-[0.3em] -mb-[0.2em] inline-block text-8xl leading-none font-bold tracking-tight sm:text-9xl"
 					>
 						<NumberFlow value={displayGrams} format={fmtOpts(displayGrams)} />
 					</span>
@@ -547,17 +549,55 @@
 						<Icon class="size-14 shrink-0 {panelColors[activeColor].text}" />
 						<div class="flex flex-col">
 							<p class="flex items-baseline gap-1">
-								<span
-									class="inline-block text-5xl leading-none font-bold tracking-tight -mb-[0.3em] {panelColors[activeColor].text}"
-								>
-									<NumberFlow value={v} format={item.format ?? fmtOpts(v)} />
-								</span>
-								{#if item.unit}
+								{#if item.isTime}
+									{@const hrs = Math.floor(v / 60)}
+									{@const rawMins = Math.round(v % 60)}
+									{@const adjustedHrs = rawMins === 60 ? hrs + 1 : hrs}
+									{@const mins = rawMins === 60 ? 0 : rawMins}
+									{@const showHrs = adjustedHrs > 0}
+									{@const displayMins = showHrs ? mins : Math.max(v > 0 ? 1 : 0, Math.round(v))}
+									{@const hideMins = showHrs && mins === 0}
 									<span
-										class="-mb-[0.25em] text-sm font-semibold {panelColors[activeColor].text}"
+										class="-mb-[0.3em] inline-block text-5xl leading-none font-bold tracking-tight {panelColors[
+											activeColor
+										].text} {showHrs ? '' : 'sr-only'}"
 									>
-										{item.unit}
+										<NumberFlow value={adjustedHrs} format={{ maximumFractionDigits: 0 }} />
 									</span>
+									<span
+										class="-mb-[0.25em] text-sm font-semibold {panelColors[activeColor]
+											.text} {showHrs ? '' : 'sr-only'}"
+									>
+										h
+									</span>
+									<span
+										class="-mb-[0.3em] inline-block text-5xl leading-none font-bold tracking-tight {panelColors[
+											activeColor
+										].text} {hideMins ? 'sr-only' : ''}"
+									>
+										<NumberFlow value={displayMins} format={{ maximumFractionDigits: 0 }} />
+									</span>
+									<span
+										class="-mb-[0.25em] text-sm font-semibold {panelColors[activeColor]
+											.text} {hideMins ? 'sr-only' : ''}"
+									>
+										min
+									</span>
+								{:else}
+									<span
+										class="-mb-[0.3em] inline-block text-5xl leading-none font-bold tracking-tight {panelColors[
+											activeColor
+										].text}"
+									>
+										<NumberFlow value={v} format={item.format ?? fmtOpts(v)} />
+									</span>
+									{#if item.unit}
+										<span
+											class="-mb-[0.25em] text-sm font-semibold {panelColors[activeColor].text}"
+										>
+											{item.unit}
+										</span>
+									{/if}
 								{/if}
 							</p>
 							<p class="mt-0 text-sm font-semibold {panelColors[activeColor].text}">
@@ -579,35 +619,35 @@
 	class="py-16"
 >
 	<p>
-		Understanding the impacts of AI and the key parameters that influence them is the first step
-		for a more conscious and responsible use of a technology that will shape the coming decades.
+		Understanding the impacts of AI and the key parameters that influence them is the first step for
+		a more conscious and responsible use of a technology that will shape the coming decades.
 	</p>
 	<p>
 		Although AI may have impacts on many aspects of our society and ecosystems, we focus here
 		specifically on environmental impacts, particularly energy use and carbon emissions, as these
-		two indicators are intrinsically linked by the energy-carbon transition we agreed to start
-		with the Paris Agreement (2015), to hold &ldquo;the increase in the global average temperature
-		to well below 2&deg;C above pre-industrial levels&rdquo; and pursue efforts &ldquo;to limit
-		the temperature increase to 1.5&deg;C above pre-industrial levels.&rdquo;
+		two indicators are intrinsically linked by the energy-carbon transition we agreed to start with
+		the Paris Agreement (2015), to hold &ldquo;the increase in the global average temperature to
+		well below 2&deg;C above pre-industrial levels&rdquo; and pursue efforts &ldquo;to limit the
+		temperature increase to 1.5&deg;C above pre-industrial levels.&rdquo;
 	</p>
 
-	<h3 class="text-xl font-semibold text-text-primary !mt-10">Approach</h3>
+	<h3 class="!mt-10 text-xl font-semibold text-text-primary">Approach</h3>
 	<p>
 		We aim to assess and aggregate the environmental impacts of AI services through a usage-based
 		approach.
 	</p>
 	<p>
-		We designed this methodology to be transparent, sourced, reproducible, and as representative
-		as possible, considering the data and studies available at the time of development (February
-		2026). As this field evolves rapidly, we encourage feedback and continuous improvement of the
+		We designed this methodology to be transparent, sourced, reproducible, and as representative as
+		possible, considering the data and studies available at the time of development (February 2026).
+		As this field evolves rapidly, we encourage feedback and continuous improvement of the
 		methodology.
 	</p>
 
-	<h3 class="text-xl font-semibold text-text-primary !mt-10">AI Use Cases</h3>
+	<h3 class="!mt-10 text-xl font-semibold text-text-primary">AI Use Cases</h3>
 	<p>
 		Before estimating impacts, we sought to understand how audiovisual creators integrate AI into
-		their work, and what types of systems are used accordingly. Online surveys revealed various
-		use cases, which we simplified and grouped into four main categories:
+		their work, and what types of systems are used accordingly. Online surveys revealed various use
+		cases, which we simplified and grouped into four main categories:
 	</p>
 	<ul class="list-disc space-y-1 pl-5">
 		<li>Read a 100-page PDF and generate a one-page summary</li>
@@ -615,16 +655,14 @@
 		<li>Generate a short HD video from a text prompt</li>
 		<li>Generate an audio clip from a text prompt</li>
 	</ul>
-	<p>
-		These use cases are intended to reflect real creative workflows in the screen industry.
-	</p>
+	<p>These use cases are intended to reflect real creative workflows in the screen industry.</p>
 
-	<h3 class="text-xl font-semibold text-text-primary !mt-10">Life-Cycle Approach</h3>
+	<h3 class="!mt-10 text-xl font-semibold text-text-primary">Life-Cycle Approach</h3>
 	<p>
 		To correctly estimate the impact of a web service, every part of the system that enables the
 		service to be delivered must be included. The three main typical parts of a digital system are
-		users' devices, networks, and data centres. To be exhaustive, either manufacturing or usage
-		must be included.
+		users' devices, networks, and data centres. To be exhaustive, either manufacturing or usage must
+		be included.
 	</p>
 	<p>
 		The methodology used to estimate the environmental impact of a service is called Life-Cycle
@@ -633,13 +671,12 @@
 	<p>
 		This approach is much more comprehensive than web carbon calculators, which are only based on
 		global statistics. It allows the impact to be estimated using multi-criteria analysis
-		(considering more than just the carbon footprint) and takes into account all phases of a
-		product or service's life cycle. In this project, we will adhere to the LCA methodology
-		requirements as closely as possible and use the most recent and coherent environmental data
-		available.
+		(considering more than just the carbon footprint) and takes into account all phases of a product
+		or service's life cycle. In this project, we will adhere to the LCA methodology requirements as
+		closely as possible and use the most recent and coherent environmental data available.
 	</p>
 
-	<h3 class="text-xl font-semibold text-text-primary !mt-10">Modeling Approach</h3>
+	<h3 class="!mt-10 text-xl font-semibold text-text-primary">Modeling Approach</h3>
 	<p>
 		Collecting primary data across all layers of AI systems remains challenging, particularly when
 		relying on third-party services. Two approaches are typically used: bottom-up and top-down
@@ -652,11 +689,11 @@
 		back-end infrastructure (data centres and compute).
 	</p>
 
-	<h3 class="text-xl font-semibold text-text-primary !mt-10">AI-Specific Modeling</h3>
+	<h3 class="!mt-10 text-xl font-semibold text-text-primary">AI-Specific Modeling</h3>
 	<p>
 		To estimate large language model (LLM) inference, we build upon the methodology developed by
-		<span class="text-text-primary">Ecologits / CodeCarbon</span>, which provides a reference framework for estimating environmental
-		impacts of chatbot interactions.
+		<span class="text-text-primary">Ecologits / CodeCarbon</span>, which provides a reference
+		framework for estimating environmental impacts of chatbot interactions.
 	</p>
 	<p>We retain the original system boundaries, focusing on inference only, including:</p>
 	<ul class="list-disc space-y-1 pl-5">
@@ -677,7 +714,7 @@
 		Antarctica.
 	</p>
 
-	<h3 class="text-xl font-semibold text-text-primary !mt-10">
+	<h3 class="!mt-10 text-xl font-semibold text-text-primary">
 		From Energy to Environmental Impact
 	</h3>
 	<p>
@@ -686,11 +723,12 @@
 	</p>
 	<ul class="list-disc space-y-1 pl-5">
 		<li>
-			<span class="text-text-primary">Embodied impact:</span> a share of emissions associated with the manufacturing of GPUs and
-			servers, allocated over their lifespan
+			<span class="text-text-primary">Embodied impact:</span> a share of emissions associated with the
+			manufacturing of GPUs and servers, allocated over their lifespan
 		</li>
 		<li>
-			<span class="text-text-primary">Usage impact:</span> emissions associated with electricity consumption during inference
+			<span class="text-text-primary">Usage impact:</span> emissions associated with electricity consumption
+			during inference
 		</li>
 	</ul>
 	<p>
@@ -703,8 +741,8 @@
 		measurements.
 	</p>
 	<p class="text-text-primary">
-		As AI technologies evolve and new data becomes available, the model will continue to be
-		refined and improved.
+		As AI technologies evolve and new data becomes available, the model will continue to be refined
+		and improved.
 	</p>
 	<p>
 		Read <a href="#" class="text-text-primary underline underline-offset-4">Full Methodology</a>

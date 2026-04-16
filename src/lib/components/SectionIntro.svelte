@@ -40,7 +40,7 @@
 
 	let titleColClass = $derived(['flex flex-col gap-3', titleColumn[ratio]].join(' '));
 	let contentColClass = $derived(
-		['space-y-4 text-lg leading-relaxed text-text-secondary', contentColumn[ratio]].join(' ')
+		['space-y-4 text-lg leading-relaxed text-text-tertiary', contentColumn[ratio]].join(' ')
 	);
 </script>
 

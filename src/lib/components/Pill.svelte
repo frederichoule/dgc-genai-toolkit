@@ -9,10 +9,11 @@
 		icon?: IconComponent;
 		color: Color;
 		selected: boolean;
+		idle?: boolean;
 		onclick?: () => void;
 	}
 
-	let { label, icon: Icon, color, selected, onclick }: Props = $props();
+	let { label, icon: Icon, color, selected, idle = false, onclick }: Props = $props();
 
 	const colors: Record<Color, string> = {
 		lime: 'bg-brand-lime',
@@ -28,7 +29,11 @@
 			'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
 			'focus-visible:ring-offset-background focus-visible:ring-brand-lime',
 			colors[color],
-			selected ? 'opacity-100' : 'opacity-20 hover:opacity-40'
+			selected
+				? idle
+					? 'opacity-80 hover:opacity-100 transition-opacity duration-300'
+					: 'opacity-100'
+				: 'opacity-20 hover:opacity-40'
 		].join(' ')
 	);
 </script>

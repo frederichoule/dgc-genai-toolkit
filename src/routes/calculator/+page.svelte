@@ -1,18 +1,16 @@
 <script lang="ts">
-	import {
-		ChevronDown,
-		FileText,
-		Image,
-		Music,
-		PlaySquare,
-		Search,
-		MailCheck,
-		MonitorPlay,
-		Users,
-		Lightbulb,
-		Microwave
-	} from 'lucide-svelte';
+	import { ChevronDown } from 'lucide-svelte';
+	import LightbulbIcon from '$lib/icons/LightbulbIcon.svelte';
+	import PresentationIcon from '$lib/icons/PresentationIcon.svelte';
+	import EmailIcon from '$lib/icons/EmailIcon.svelte';
+	import SearchIcon from '$lib/icons/SearchIcon.svelte';
+	import VideoCallIcon from '$lib/icons/VideoCallIcon.svelte';
+	import MicrowaveIcon from '$lib/icons/MicrowaveIcon.svelte';
+	import AudioIcon from '$lib/icons/AudioIcon.svelte';
+	import ImageIcon from '$lib/icons/ImageIcon.svelte';
+	import TextIcon from '$lib/icons/TextIcon.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import SectionIntro from '$lib/components/SectionIntro.svelte';
 	import Pill from '$lib/components/Pill.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import Select from '$lib/components/Select.svelte';
@@ -180,10 +178,10 @@
 	}
 
 	const tasks = [
-		{ id: 'summary', label: 'A text summary', icon: FileText, color: 'lime' },
-		{ id: 'image', label: 'An image', icon: Image, color: 'mint' },
-		{ id: 'audio', label: 'An audio clip', icon: Music, color: 'spring' },
-		{ id: 'video', label: 'A video clip', icon: PlaySquare, color: 'forest' }
+		{ id: 'summary', label: 'A text summary', icon: TextIcon, color: 'lime' },
+		{ id: 'image', label: 'An image', icon: ImageIcon, color: 'mint' },
+		{ id: 'audio', label: 'An audio clip', icon: AudioIcon, color: 'spring' },
+		{ id: 'video', label: 'A video clip', icon: PresentationIcon, color: 'forest' }
 	] as const;
 
 	const panelColors: Record<TaskColor, { bg: string; text: string }> = {
@@ -214,37 +212,39 @@
 
 	const equivalences = $derived([
 		{
-			icon: Search,
-			value: result ? result.totalCo2Kg / co2Factor('Web searches') : 0,
+			icon: SearchIcon,
+			value: result ? Math.round(result.totalCo2Kg / co2Factor('Web searches')) : 0,
 			unit: '',
-			label: 'web searches'
+			label: 'web searches',
+			format: { maximumFractionDigits: 0 } as Intl.NumberFormatOptions
 		},
 		{
-			icon: MailCheck,
-			value: result ? result.totalCo2Kg / co2Factor('Emails sent') : 0,
+			icon: EmailIcon,
+			value: result ? Math.round(result.totalCo2Kg / co2Factor('Emails sent')) : 0,
 			unit: '',
-			label: 'emails sent'
+			label: 'emails sent',
+			format: { maximumFractionDigits: 0 } as Intl.NumberFormatOptions
 		},
 		{
-			icon: MonitorPlay,
+			icon: PresentationIcon,
 			value: result ? (result.totalCo2Kg / co2Factor('Hours of video streaming')) * 60 : 0,
 			unit: 'min',
 			label: 'of streaming'
 		},
 		{
-			icon: Users,
+			icon: VideoCallIcon,
 			value: result ? result.totalCo2Kg / co2Factor('Hours of video conference') : 0,
 			unit: 'h',
 			label: 'of video call with 2 people'
 		},
 		{
-			icon: Lightbulb,
+			icon: LightbulbIcon,
 			value: kwh / kwhFactor('LED bulb hours'),
 			unit: 'h',
 			label: 'of LED light'
 		},
 		{
-			icon: Microwave,
+			icon: MicrowaveIcon,
 			value: kwh / kwhFactor('Microwave minutes'),
 			unit: 'min',
 			label: 'of microwave'
@@ -282,6 +282,7 @@
 							icon={task.icon}
 							color={task.color}
 							selected={selectedTask === null || selectedTask === task.id}
+							idle={selectedTask === null}
 							onclick={() => {
 								if (selectedTask === task.id) return;
 								selectedTask = task.id;
@@ -543,13 +544,13 @@
 					{@const Icon = item.icon}
 					{@const v = displayEquivalences[i] ?? 0}
 					<div class="flex items-center gap-5">
-						<Icon class="size-14 shrink-0 {panelColors[activeColor].text}" strokeWidth={1.25} />
+						<Icon class="size-14 shrink-0 {panelColors[activeColor].text}" />
 						<div class="flex flex-col">
 							<p class="flex items-baseline gap-1">
 								<span
 									class="inline-block text-5xl leading-none font-bold tracking-tight -mb-[0.3em] {panelColors[activeColor].text}"
 								>
-									<NumberFlow value={v} format={fmtOpts(v)} />
+									<NumberFlow value={v} format={item.format ?? fmtOpts(v)} />
 								</span>
 								{#if item.unit}
 									<span
@@ -569,3 +570,143 @@
 		</div>
 	{/if}
 </section>
+
+<hr class="border-border" />
+
+<SectionIntro
+	eyebrow="About the Calculator methodology"
+	title="Estimating environmental impact of Gen AI for different use cases"
+	class="py-16"
+>
+	<p>
+		Understanding the impacts of AI and the key parameters that influence them is the first step
+		for a more conscious and responsible use of a technology that will shape the coming decades.
+	</p>
+	<p>
+		Although AI may have impacts on many aspects of our society and ecosystems, we focus here
+		specifically on environmental impacts, particularly energy use and carbon emissions, as these
+		two indicators are intrinsically linked by the energy-carbon transition we agreed to start
+		with the Paris Agreement (2015), to hold &ldquo;the increase in the global average temperature
+		to well below 2&deg;C above pre-industrial levels&rdquo; and pursue efforts &ldquo;to limit
+		the temperature increase to 1.5&deg;C above pre-industrial levels.&rdquo;
+	</p>
+
+	<h3 class="text-xl font-semibold text-text-primary !mt-10">Approach</h3>
+	<p>
+		We aim to assess and aggregate the environmental impacts of AI services through a usage-based
+		approach.
+	</p>
+	<p>
+		We designed this methodology to be transparent, sourced, reproducible, and as representative
+		as possible, considering the data and studies available at the time of development (February
+		2026). As this field evolves rapidly, we encourage feedback and continuous improvement of the
+		methodology.
+	</p>
+
+	<h3 class="text-xl font-semibold text-text-primary !mt-10">AI Use Cases</h3>
+	<p>
+		Before estimating impacts, we sought to understand how audiovisual creators integrate AI into
+		their work, and what types of systems are used accordingly. Online surveys revealed various
+		use cases, which we simplified and grouped into four main categories:
+	</p>
+	<ul class="list-disc space-y-1 pl-5">
+		<li>Read a 100-page PDF and generate a one-page summary</li>
+		<li>Generate a 2K photorealistic image from a text prompt (multiple iterations)</li>
+		<li>Generate a short HD video from a text prompt</li>
+		<li>Generate an audio clip from a text prompt</li>
+	</ul>
+	<p>
+		These use cases are intended to reflect real creative workflows in the screen industry.
+	</p>
+
+	<h3 class="text-xl font-semibold text-text-primary !mt-10">Life-Cycle Approach</h3>
+	<p>
+		To correctly estimate the impact of a web service, every part of the system that enables the
+		service to be delivered must be included. The three main typical parts of a digital system are
+		users' devices, networks, and data centres. To be exhaustive, either manufacturing or usage
+		must be included.
+	</p>
+	<p>
+		The methodology used to estimate the environmental impact of a service is called Life-Cycle
+		Assessment (LCA). Described in ISO 14040 and 14044, as well as ITU L.1450.
+	</p>
+	<p>
+		This approach is much more comprehensive than web carbon calculators, which are only based on
+		global statistics. It allows the impact to be estimated using multi-criteria analysis
+		(considering more than just the carbon footprint) and takes into account all phases of a
+		product or service's life cycle. In this project, we will adhere to the LCA methodology
+		requirements as closely as possible and use the most recent and coherent environmental data
+		available.
+	</p>
+
+	<h3 class="text-xl font-semibold text-text-primary !mt-10">Modeling Approach</h3>
+	<p>
+		Collecting primary data across all layers of AI systems remains challenging, particularly when
+		relying on third-party services. Two approaches are typically used: bottom-up and top-down
+		modeling.
+	</p>
+	<p>
+		We adopt a bottom-up approach, which estimates impacts based on granular activity (such as
+		token-level usage) and extrapolates system-level consumption. Although more complex, this
+		approach is better suited to AI systems, where environmental impact is largely concentrated in
+		back-end infrastructure (data centres and compute).
+	</p>
+
+	<h3 class="text-xl font-semibold text-text-primary !mt-10">AI-Specific Modeling</h3>
+	<p>
+		To estimate large language model (LLM) inference, we build upon the methodology developed by
+		<span class="text-text-primary">Ecologits / CodeCarbon</span>, which provides a reference framework for estimating environmental
+		impacts of chatbot interactions.
+	</p>
+	<p>We retain the original system boundaries, focusing on inference only, including:</p>
+	<ul class="list-disc space-y-1 pl-5">
+		<li>GPU and server energy consumption</li>
+		<li>Data centre overhead (cooling and infrastructure)</li>
+	</ul>
+	<p>We exclude:</p>
+	<ul class="list-disc space-y-1 pl-5">
+		<li>Model training</li>
+		<li>Data storage</li>
+		<li>End-user devices</li>
+		<li>Network impacts</li>
+	</ul>
+	<p>These exclusions reflect current data limitations and methodological consistency.</p>
+	<p>
+		To extend the model beyond text-based systems, we adapt token-based modeling to image, audio,
+		and video generation, drawing inspiration from the &ldquo;One Token Model&rdquo; developed by
+		Antarctica.
+	</p>
+
+	<h3 class="text-xl font-semibold text-text-primary !mt-10">
+		From Energy to Environmental Impact
+	</h3>
+	<p>
+		Once energy consumption is estimated for each use case, it is converted into environmental
+		impact indicators. The total impact includes:
+	</p>
+	<ul class="list-disc space-y-1 pl-5">
+		<li>
+			<span class="text-text-primary">Embodied impact:</span> a share of emissions associated with the manufacturing of GPUs and
+			servers, allocated over their lifespan
+		</li>
+		<li>
+			<span class="text-text-primary">Usage impact:</span> emissions associated with electricity consumption during inference
+		</li>
+	</ul>
+	<p>
+		We account for data centre efficiency (PUE) and variations in electricity carbon intensity
+		across regions to ensure results reflect real-world conditions.
+	</p>
+
+	<p class="!mt-10 text-text-primary">
+		This methodology is designed to provide transparent and practical estimates, not absolute
+		measurements.
+	</p>
+	<p class="text-text-primary">
+		As AI technologies evolve and new data becomes available, the model will continue to be
+		refined and improved.
+	</p>
+	<p>
+		Read <a href="#" class="text-text-primary underline underline-offset-4">Full Methodology</a>
+	</p>
+</SectionIntro>

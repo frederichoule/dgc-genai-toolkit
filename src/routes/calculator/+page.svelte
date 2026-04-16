@@ -25,6 +25,7 @@
 		energyEquivalences,
 		type Result
 	} from '$lib/calculator';
+	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import NumberFlow from '@number-flow/svelte';
 
@@ -145,7 +146,9 @@
 		submitted = null;
 	}
 
-	function submit() {
+	let resultsEl = $state<HTMLDivElement | null>(null);
+
+	async function submit() {
 		if (!selectedTask) return;
 		let computed: Result;
 		if (selectedTask === 'summary') {
@@ -170,6 +173,10 @@
 			computed = calculateAudio(audioAttempts, audioDuration, provider);
 		}
 		submitted = { snapshot: currentSnapshot(), result: computed };
+		await tick();
+		if (window.matchMedia('(max-width: 1023px)').matches) {
+			resultsEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
 	}
 
 	const tasks = [
@@ -508,7 +515,11 @@
 	</div>
 
 	{#if result}
-		<div class="w-full lg:sticky lg:top-24 lg:self-start" transition:fade={{ duration: 250 }}>
+		<div
+			bind:this={resultsEl}
+			class="w-full scroll-mt-28 lg:sticky lg:top-24 lg:self-start"
+			transition:fade={{ duration: 250 }}
+		>
 			<div class="rounded-3xl {panelColors[activeColor].bg} p-5 pb-1 text-background sm:p-6 sm:pb-2">
 				<p class="text-sm">Estimated emissions</p>
 				<p class="mt-0 flex items-baseline gap-2">

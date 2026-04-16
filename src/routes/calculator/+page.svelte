@@ -195,6 +195,8 @@
 
 	function fmtOpts(n: number): Intl.NumberFormatOptions {
 		if (!isFinite(n) || n < 0) return { maximumFractionDigits: 0 };
+		if (n >= 10_000)
+			return { notation: 'compact', compactDisplay: 'short', maximumFractionDigits: 1 };
 		if (n >= 100) return { maximumFractionDigits: 0 };
 		if (n >= 10) return { minimumFractionDigits: 1, maximumFractionDigits: 1 };
 		return { minimumFractionDigits: 2, maximumFractionDigits: 2 };
@@ -507,19 +509,21 @@
 
 	{#if result}
 		<div class="w-full lg:sticky lg:top-24 lg:self-start" transition:fade={{ duration: 250 }}>
-			<div class="rounded-3xl {panelColors[activeColor].bg} p-8 text-background sm:p-10">
+			<div class="rounded-3xl {panelColors[activeColor].bg} p-5 pb-1 text-background sm:p-6 sm:pb-2">
 				<p class="text-sm">Estimated emissions</p>
-				<p class="mt-4 flex items-end gap-2">
-					<span class="text-8xl leading-none font-bold tracking-tight sm:text-9xl">
+				<p class="mt-0 flex items-baseline gap-2">
+					<span
+						class="inline-block text-8xl leading-none font-bold tracking-tight -mt-[0.3em] -mb-[0.2em] sm:text-9xl"
+					>
 						<NumberFlow value={displayGrams} format={fmtOpts(displayGrams)} />
 					</span>
-					<span class="pb-2 text-2xl font-semibold sm:text-3xl">
+					<span class="-mb-[0.25em] text-2xl font-semibold sm:text-3xl">
 						g CO<sub class="text-[0.6em]">2</sub>e
 					</span>
 				</p>
 			</div>
 
-			<p class="mt-10 text-sm text-text-tertiary">That's equivalent to...</p>
+			<p class="mt-10 text-sm {panelColors[activeColor].text}">That's equivalent to...</p>
 
 			<div
 				class="mt-6 grid grid-flow-row gap-x-8 gap-y-8 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-3"
@@ -530,17 +534,21 @@
 					<div class="flex items-center gap-5">
 						<Icon class="size-14 shrink-0 {panelColors[activeColor].text}" strokeWidth={1.25} />
 						<div class="flex flex-col">
-							<p class="flex items-end gap-1">
-								<span class="text-5xl leading-none font-bold {panelColors[activeColor].text}">
+							<p class="flex items-baseline gap-1">
+								<span
+									class="inline-block text-5xl leading-none font-bold tracking-tight -mb-[0.3em] {panelColors[activeColor].text}"
+								>
 									<NumberFlow value={v} format={fmtOpts(v)} />
 								</span>
 								{#if item.unit}
-									<span class="pb-1 text-sm font-semibold {panelColors[activeColor].text}">
+									<span
+										class="-mb-[0.25em] text-sm font-semibold {panelColors[activeColor].text}"
+									>
 										{item.unit}
 									</span>
 								{/if}
 							</p>
-							<p class="mt-1 text-sm font-semibold {panelColors[activeColor].text}">
+							<p class="mt-0 text-sm font-semibold {panelColors[activeColor].text}">
 								{item.label}
 							</p>
 						</div>

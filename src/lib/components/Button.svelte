@@ -34,7 +34,7 @@
 	}: Props = $props();
 
 	const base =
-		'inline-flex items-center justify-between gap-6 font-medium tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:ring-brand-lime disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-60';
+		'inline-flex items-center justify-between gap-6 font-medium tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:ring-brand-lime disabled:cursor-not-allowed disabled:opacity-20 aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-20';
 
 	const sizes: Record<Size, string> = {
 		sm: 'px-4 py-2 text-sm',
@@ -55,9 +55,7 @@
 	};
 
 	let classes = $derived(
-		[base, sizes[size], variants[variant], fullWidth && 'w-full', klass]
-			.filter(Boolean)
-			.join(' ')
+		[base, sizes[size], variants[variant], fullWidth && 'w-full', klass].filter(Boolean).join(' ')
 	);
 </script>
 

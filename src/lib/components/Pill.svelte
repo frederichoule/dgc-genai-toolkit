@@ -1,11 +1,12 @@
 <script lang="ts">
-	import type { Component } from 'svelte';
+	import type { Component, ComponentType, SvelteComponent } from 'svelte';
 
 	type Color = 'lime' | 'mint' | 'spring' | 'forest';
+	type IconComponent = Component<any> | ComponentType<SvelteComponent<any>>;
 
 	interface Props {
 		label: string;
-		icon?: Component;
+		icon?: IconComponent;
 		color: Color;
 		selected: boolean;
 		onclick?: () => void;

@@ -1,5 +1,5 @@
 {
-	"name": "dgcai",
+	"name": "dgc-genai-toolkit",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -49,6 +49,8 @@
 	},
 	"dependencies": {
 		"@number-flow/svelte": "^0.4.0",
-		"lucide-svelte": "^1.0.1"
+		"gray-matter": "^4.0.3",
+		"lucide-svelte": "^1.0.1",
+		"marked": "^18.0.0"
 	}
 }

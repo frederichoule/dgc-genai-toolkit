@@ -14,6 +14,7 @@
 	import Pill from '$lib/components/Pill.svelte';
 	import Input from '$lib/components/Input.svelte';
 	import Select from '$lib/components/Select.svelte';
+	import { m } from '$lib/paraglide/messages.js';
 	import {
 		calculateText,
 		calculateImage,
@@ -265,6 +266,8 @@
 	});
 </script>
 
+<svelte:head><title>{m.title_calculator()}</title></svelte:head>
+
 <section class="grid grid-cols-1 gap-12 py-16 lg:grid-cols-2">
 	<div class="max-w-xl">
 		<p class="text-xs tracking-[0.18em] text-text-tertiary uppercase">Emissions calculator</p>
@@ -498,7 +501,7 @@
 					disabled={selectedTask === null}
 					onclick={submit}
 				>
-					Estimate your AI footprint
+					Estimate your GenAI footprint
 				</Button>
 			</div>
 

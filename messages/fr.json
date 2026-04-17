@@ -11,5 +11,21 @@
 	"footer_calculated_with": "Calculé avec",
 	"footer_copyright": "Copyright {year} - DGC Green",
 	"footer_legals": "Mentions légales",
-	"footer_privacy": "Politique de confidentialité"
+	"footer_privacy": "Politique de confidentialité",
+	"title_home": "Boîte à outils GenAI | DGC Green",
+	"title_calculator": "Calculateur d'émissions | Boîte à outils GenAI | DGC Green",
+	"title_about": "À propos | Boîte à outils GenAI | DGC Green",
+	"howto_facts_title": "Voir l'impact",
+	"howto_facts_description": "Utilisez la fiche d'information pour voir d'où viennent les impacts environnementaux.",
+	"howto_practices_title": "Éclairer vos choix",
+	"howto_practices_description": "Utilisez les bonnes pratiques pour faire des choix plus éclairés dans vos flux de travail.",
+	"howto_calculator_title": "Mesurer votre utilisation",
+	"howto_calculator_description": "Utilisez le calculateur pour estimer et comparer votre utilisation de l'IA.",
+	"explore_title": "Explorer la boîte à outils",
+	"explore_facts_title": "Faits",
+	"explore_facts_description": "Comprendre d'où viennent les impacts",
+	"explore_practices_title": "Bonnes pratiques",
+	"explore_practices_description": "Faire des choix éclairés dans vos flux de travail",
+	"explore_calculator_title": "Calculateur",
+	"explore_calculator_description": "Estimer et comparer votre utilisation de l'IA"
 }

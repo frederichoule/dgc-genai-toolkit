@@ -33,17 +33,13 @@
 							{entry.locales.length} locale{entry.locales.length === 1 ? '' : 's'}
 						</p>
 					</div>
-					<div class="flex flex-wrap gap-2">
-						{#each entry.locales as locale (locale)}
-							<Button
-								variant="outline"
-								size="sm"
-								href={resolve('/admin/cms/[slug]/[locale]', { slug: entry.slug, locale })}
-							>
-								Edit {locale.toUpperCase()}
-							</Button>
-						{/each}
-					</div>
+					<Button
+						variant="outline"
+						size="sm"
+						href={resolve('/admin/cms/[slug]', { slug: entry.slug })}
+					>
+						Edit
+					</Button>
 				</div>
 			{/each}
 		</div>

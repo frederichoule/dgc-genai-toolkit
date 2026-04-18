@@ -42,6 +42,7 @@
 		textTokensPerPage: 500,
 		textOutputPages: 1,
 		imageImagesPerIteration: 1,
+		imageResolution: '2816x1536',
 		videoQuality: 'HD',
 		videoFps: 24,
 		provider: 'OpenAI'
@@ -61,6 +62,7 @@
 	let textTokensPerPage = $state(defaults.textTokensPerPage);
 	let textOutputPages = $state(defaults.textOutputPages);
 	let imageImagesPerIteration = $state(defaults.imageImagesPerIteration);
+	let imageResolution = $state(defaults.imageResolution);
 	let videoQuality = $state(defaults.videoQuality);
 	let videoFps = $state(defaults.videoFps);
 	let provider = $state(defaults.provider);
@@ -81,6 +83,19 @@
 		{ value: 'FHD', label: 'Full HD (1080×1920)' }
 	];
 
+	const imageResolutionOptions = [
+		{ value: '1024x1024', label: '1024×1024' },
+		{ value: '896x1280', label: '896×1280' },
+		{ value: '1280x896', label: '1280×896' },
+		{ value: '768x1408', label: '768×1408' },
+		{ value: '1408x768', label: '1408×768' },
+		{ value: '2048x2048', label: '2048×2048' },
+		{ value: '1792x2560', label: '1792×2560' },
+		{ value: '2560x1792', label: '2560×1792' },
+		{ value: '1536x2816', label: '1536×2816' },
+		{ value: '2816x1536', label: '2K (2816×1536)' }
+	];
+
 	type Snapshot = {
 		selectedTask: TaskType | null;
 		pagesToRead: number;
@@ -89,6 +104,7 @@
 		textOutputPages: number;
 		imageAttempts: number;
 		imageImagesPerIteration: number;
+		imageResolution: string;
 		videoAttempts: number;
 		videoDuration: number;
 		videoQuality: string;
@@ -107,6 +123,7 @@
 			textOutputPages,
 			imageAttempts,
 			imageImagesPerIteration,
+			imageResolution,
 			videoAttempts,
 			videoDuration,
 			videoQuality,
@@ -139,6 +156,7 @@
 		textTokensPerPage = defaults.textTokensPerPage;
 		textOutputPages = defaults.textOutputPages;
 		imageImagesPerIteration = defaults.imageImagesPerIteration;
+		imageResolution = defaults.imageResolution;
 		videoQuality = defaults.videoQuality;
 		videoFps = defaults.videoFps;
 		provider = defaults.provider;
@@ -308,14 +326,14 @@
 					<div class="space-y-8 pt-8">
 						<Input
 							id="pages-to-read"
-							label="Pages to read"
+							label={m.calc_q_pages_input()}
 							type="number"
 							min={1}
 							bind:value={pagesToRead}
 						/>
 						<Select
 							id="use-reasoning"
-							label="Use a reasoning model?"
+							label={m.calc_q_reasoning()}
 							bind:value={useReasoning}
 							options={[
 								{ value: '1', label: 'With a reasoning model' },
@@ -331,13 +349,19 @@
 				style:grid-template-rows={selectedTask === 'image' ? '1fr' : '0fr'}
 			>
 				<div class="min-h-0">
-					<div class="pt-8">
+					<div class="space-y-8 pt-8">
 						<Input
 							id="image-attempts"
-							label="Attempts / iterations"
+							label={m.calc_q_iterations()}
 							type="number"
 							min={1}
 							bind:value={imageAttempts}
+						/>
+						<Select
+							id="image-resolution"
+							label={m.calc_q_image_resolution()}
+							bind:value={imageResolution}
+							options={imageResolutionOptions}
 						/>
 					</div>
 				</div>
@@ -351,14 +375,14 @@
 					<div class="space-y-8 pt-8">
 						<Input
 							id="video-attempts"
-							label="Attempts / iterations"
+							label={m.calc_q_iterations()}
 							type="number"
 							min={1}
 							bind:value={videoAttempts}
 						/>
 						<Input
 							id="video-duration"
-							label="Duration (seconds)"
+							label={m.calc_q_video_duration()}
 							type="number"
 							min={1}
 							bind:value={videoDuration}
@@ -375,14 +399,14 @@
 					<div class="space-y-8 pt-8">
 						<Input
 							id="audio-attempts"
-							label="Attempts / iterations"
+							label={m.calc_q_iterations()}
 							type="number"
 							min={1}
 							bind:value={audioAttempts}
 						/>
 						<Input
 							id="audio-duration"
-							label="Duration (seconds)"
+							label={m.calc_q_audio_duration()}
 							type="number"
 							min={1}
 							bind:value={audioDuration}
@@ -420,14 +444,14 @@
 					<div class="space-y-8 pt-8">
 						<Input
 							id="text-tokens-per-page"
-							label="Nombre de tokens par page"
+							label={m.calc_q_tokens_per_page()}
 							type="number"
 							min={1}
 							bind:value={textTokensPerPage}
 						/>
 						<Input
 							id="text-output-pages"
-							label="Nombre de pages de sortie"
+							label={m.calc_q_output_pages()}
 							type="number"
 							min={1}
 							bind:value={textOutputPages}
@@ -444,7 +468,7 @@
 					<div class="pt-8">
 						<Input
 							id="image-per-iteration"
-							label="Nombre d'images générées par itération"
+							label={m.calc_q_images_per_prompt()}
 							type="number"
 							min={1}
 							bind:value={imageImagesPerIteration}
@@ -461,13 +485,13 @@
 					<div class="space-y-8 pt-8">
 						<Select
 							id="video-quality"
-							label="Qualité de la vidéo générée"
+							label={m.calc_q_video_quality()}
 							bind:value={videoQuality}
 							options={videoQualityOptions}
 						/>
 						<Input
 							id="video-fps"
-							label="Nombre de frames par seconde (fps)"
+							label={m.calc_q_video_fps()}
 							type="number"
 							min={1}
 							bind:value={videoFps}
@@ -484,7 +508,7 @@
 					<div class="pt-8">
 						<Select
 							id="provider"
-							label="Fournisseur du service d'IA"
+							label={m.calc_q_provider()}
 							bind:value={provider}
 							options={providerOptions}
 						/>

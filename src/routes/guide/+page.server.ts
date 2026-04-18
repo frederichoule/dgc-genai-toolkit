@@ -1,7 +1,13 @@
 import { getGuide } from '$lib/server/guide';
+import { getContent } from '$lib/server/content';
 import { getLocale } from '$lib/paraglide/runtime';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ platform }) => {
-	return await getGuide(platform!.env.DB, getLocale());
+	const locale = getLocale();
+	const [guide, note] = await Promise.all([
+		getGuide(platform!.env.DB, locale),
+		getContent(platform!.env.DB, 'guide-note', locale)
+	]);
+	return { ...guide, note };
 };

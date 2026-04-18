@@ -21,3 +21,14 @@
 </SectionIntro>
 
 <GuideAccordion sections={data.sections} />
+
+<section
+	class="mt-20 grid grid-cols-1 gap-8 border border-text-tertiary/20 bg-background-soft px-8 py-20 md:grid-cols-12 md:gap-12 md:px-12 md:py-32"
+>
+	<div class="space-y-4 md:col-span-7 md:col-start-3">
+		<h2 class="text-xl font-normal text-text-secondary">{data.note.frontmatter.title}</h2>
+		<div class="markdown text-text-tertiary">
+			{@html data.note.html}
+		</div>
+	</div>
+</section>

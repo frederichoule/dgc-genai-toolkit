@@ -14,7 +14,7 @@
 <section class="py-16">
 	<FeatureCard
 		title="Understand, measure, and reduce the environmental impact of AI in film and television production"
-		image="https://picsum.photos/seed/filmset/1200/900"
+		image="/images/hero-filmset.jpg"
 		imageAlt="Film set with crew and equipment"
 	>
 		<p>

@@ -10,8 +10,7 @@
 		{ href: '/about', label: m.nav_about },
 		{ href: '/calculator', label: m.nav_calculator },
 		{ href: '/guide', label: m.nav_guide },
-		{ href: '/facts', label: m.nav_facts },
-		{ href: '/faq', label: m.nav_faq }
+		{ href: '/facts', label: m.nav_facts }
 	];
 
 	const isActive = (href: string) => page.url.pathname.endsWith(href);

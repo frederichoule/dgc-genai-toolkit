@@ -28,6 +28,8 @@
 	"calc_q_video_fps": "How many frames per second is the generated video?",
 	"title_about": "About | GenAI Toolkit | DGC Green",
 	"title_guide": "Guide | GenAI Toolkit | DGC Green",
+	"title_glossary": "Glossary | GenAI Toolkit | DGC Green",
+	"title_facts": "Facts | GenAI Toolkit | DGC Green",
 	"howto_facts_title": "See the impact",
 	"howto_facts_description": "Use the Fact Sheet to see where environmental impacts come from.",
 	"howto_practices_title": "Inform your choices",

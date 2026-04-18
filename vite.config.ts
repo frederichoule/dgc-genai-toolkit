@@ -14,6 +14,13 @@ export default defineConfig({
 			disableAsyncLocalStorage: true,
 			urlPatterns: [
 				{
+					pattern: '/admin/:path(.*)?',
+					localized: [
+						['en', '/admin/:path(.*)?'],
+						['fr', '/admin/:path(.*)?']
+					]
+				},
+				{
 					pattern: '/:path(.*)?',
 					localized: [
 						['en', '/en/:path(.*)?'],

@@ -1,9 +1,8 @@
 import { getContent } from '$lib/server/content';
 import { getLocale } from '$lib/paraglide/runtime';
+import type { PageServerLoad } from './$types';
 
-export function load() {
-	const locale = getLocale();
-	const { frontmatter, html } = getContent('about', locale);
-
+export const load: PageServerLoad = async ({ platform }) => {
+	const { frontmatter, html } = await getContent(platform!.env.DB, 'about', getLocale());
 	return { frontmatter, html };
-}
+};

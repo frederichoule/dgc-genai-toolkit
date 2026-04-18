@@ -75,7 +75,7 @@
 			<div class="flex flex-col">
 				<span class="mb-2 text-xs tracking-wide text-text-tertiary uppercase">Preview</span>
 				<div
-					class="prose h-[70svh] min-h-[500px] max-w-none overflow-auto border border-white/15 bg-background-soft p-4 text-text-tertiary prose-invert prose-headings:text-text-primary prose-a:text-brand-lime prose-strong:text-text-primary"
+					class="markdown h-[70svh] min-h-[500px] overflow-auto border border-white/15 bg-background-soft p-4"
 				>
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html preview}

@@ -3,7 +3,9 @@
 	"account_id": "6339ad467c2125698a2556bb1271ac27",
 	"name": "dgc-genai-toolkit",
 	"compatibility_date": "2026-04-13",
-	"compatibility_flags": ["nodejs_als"],
+	"compatibility_flags": [
+		"nodejs_als"
+	],
 	"main": ".svelte-kit/cloudflare/_worker.js",
 	"assets": {
 		"binding": "ASSETS",
@@ -25,7 +27,8 @@
 		{
 			"binding": "DB",
 			"database_name": "dgc-genai-toolkit",
-			"database_id": "REPLACE_WITH_WRANGLER_D1_CREATE_OUTPUT"
+			"database_id": "7d1f6413-8cf3-4ac5-9ec0-e545b9a52676",
+			"remote": true
 		}
 	]
 }

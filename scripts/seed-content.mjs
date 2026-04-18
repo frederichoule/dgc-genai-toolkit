@@ -3,12 +3,6 @@ import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const mode = process.argv[2];
-if (mode !== '--local' && mode !== '--remote') {
-	console.error('Usage: pnpm db:seed-content -- --local | --remote');
-	process.exit(1);
-}
-
 const contentDir = 'content';
 const escape = (s) => `'${s.replace(/'/g, "''")}'`;
 const statements = [];
@@ -29,5 +23,5 @@ const dir = mkdtempSync(join(tmpdir(), 'seed-content-'));
 const sqlFile = join(dir, 'seed.sql');
 writeFileSync(sqlFile, sql);
 
-console.log(`Seeding ${statements.length} content block(s) to D1 (${mode.slice(2)})…`);
-execSync(`npx wrangler d1 execute DB ${mode} --file="${sqlFile}"`, { stdio: 'inherit' });
+console.log(`Seeding ${statements.length} content block(s) to D1 (remote)…`);
+execSync(`npx wrangler d1 execute DB --remote --file="${sqlFile}"`, { stdio: 'inherit' });

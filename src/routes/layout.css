@@ -22,3 +22,7 @@
 body {
 	font-family: var(--font-sans);
 }
+
+@utility markdown {
+	@apply prose prose-invert max-w-none text-text-tertiary prose-headings:text-text-primary prose-strong:text-text-primary prose-a:text-text-tertiary prose-a:underline prose-a:underline-offset-4;
+}

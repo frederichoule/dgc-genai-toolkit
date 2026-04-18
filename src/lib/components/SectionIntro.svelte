@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	type Ratio = 'thirds' | 'half' | 'quarter';
+	type Ratio = 'thirds' | 'half' | 'quarter' | 'stacked';
 	type HeadingLevel = 'h1' | 'h2' | 'h3';
 
 	interface Props {
@@ -27,13 +27,15 @@
 	const titleColumn: Record<Ratio, string> = {
 		thirds: 'md:col-span-4',
 		half: 'md:col-span-6',
-		quarter: 'md:col-span-3'
+		quarter: 'md:col-span-3',
+		stacked: 'md:col-span-6 md:col-start-1'
 	};
 
 	const contentColumn: Record<Ratio, string> = {
 		thirds: 'md:col-span-8',
 		half: 'md:col-span-6',
-		quarter: 'md:col-span-9'
+		quarter: 'md:col-span-9',
+		stacked: 'md:col-span-6 md:col-start-1'
 	};
 
 	const headingSize: Record<HeadingLevel, string> = {
@@ -43,7 +45,13 @@
 	};
 
 	let wrapperClass = $derived(
-		['grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12', klass].filter(Boolean).join(' ')
+		[
+			'grid grid-cols-1 gap-8 md:grid-cols-12',
+			ratio === 'stacked' ? 'md:gap-x-12 md:gap-y-1' : 'md:gap-12',
+			klass
+		]
+			.filter(Boolean)
+			.join(' ')
 	);
 
 	let titleColClass = $derived(
@@ -51,7 +59,8 @@
 	);
 	let contentColClass = $derived(
 		[
-			'space-y-4 text-lg leading-relaxed text-text-tertiary',
+			'space-y-4 leading-relaxed text-text-tertiary',
+			ratio === 'stacked' ? 'text-xl' : 'text-lg',
 			image ? 'md:col-span-6' : contentColumn[ratio]
 		].join(' ')
 	);

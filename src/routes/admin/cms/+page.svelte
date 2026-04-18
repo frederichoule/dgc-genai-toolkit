@@ -19,9 +19,7 @@
 	{#if data.entries.length === 0}
 		<div class="border border-white/15 bg-background-soft p-8 text-center">
 			<p class="text-sm text-text-tertiary">
-				No content blocks found. Run <code class="text-text-primary"
-					>pnpm db:seed-content -- --local</code
-				>
+				No content blocks found. Run <code class="text-text-primary">pnpm db:seed-content</code>
 				to seed from the <code class="text-text-primary">content/</code> directory.
 			</p>
 		</div>

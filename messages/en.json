@@ -27,6 +27,7 @@
 	"calc_q_video_quality": "What is the quality of the generated video?",
 	"calc_q_video_fps": "How many frames per second is the generated video?",
 	"title_about": "About | GenAI Toolkit | DGC Green",
+	"title_guide": "Guide | GenAI Toolkit | DGC Green",
 	"howto_facts_title": "See the impact",
 	"howto_facts_description": "Use the Fact Sheet to see where environmental impacts come from.",
 	"howto_practices_title": "Inform your choices",
@@ -40,5 +41,6 @@
 	"explore_practices_description": "Make informed choices in your workflows",
 	"explore_calculator_title": "Calculator",
 	"explore_calculator_description": "Estimate and compare your AI use",
-	"calc_reasoning_tooltip": "Understanding the impacts of AI and the key parameters that influence them is the first step for a more conscious and responsible use of a technology that will shape the coming decades."
+	"calc_reasoning_tooltip": "Understanding the impacts of AI and the key parameters that influence them is the first step for a more conscious and responsible use of a technology that will shape the coming decades.",
+	"guide_toggle_card": "Toggle card"
 }

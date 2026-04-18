@@ -289,7 +289,7 @@
 <section class="grid grid-cols-1 gap-12 py-16 lg:grid-cols-2">
 	<div class="max-w-xl">
 		<p class="text-xs tracking-[0.18em] text-text-tertiary uppercase">Emissions calculator</p>
-		<h1 class="mt-6 text-5xl font-normal tracking-tight text-text-primary sm:text-6xl">
+		<h1 class="mt-3 text-5xl font-normal tracking-tight text-text-primary sm:text-6xl">
 			What does your AI task cost?
 		</h1>
 

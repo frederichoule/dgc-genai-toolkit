@@ -27,5 +27,6 @@
 	"explore_practices_title": "Best Practices",
 	"explore_practices_description": "Make informed choices in your workflows",
 	"explore_calculator_title": "Calculator",
-	"explore_calculator_description": "Estimate and compare your AI use"
+	"explore_calculator_description": "Estimate and compare your AI use",
+	"calc_reasoning_tooltip": "Understanding the impacts of AI and the key parameters that influence them is the first step for a more conscious and responsible use of a technology that will shape the coming decades."
 }

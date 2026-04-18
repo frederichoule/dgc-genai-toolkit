@@ -315,7 +315,8 @@
 						/>
 						<Select
 							id="use-reasoning"
-							label="Use a reasoning model?"
+							label="Did the model need to use reasoning?"
+							tooltip={m.calc_reasoning_tooltip()}
 							bind:value={useReasoning}
 							options={[
 								{ value: '1', label: 'With a reasoning model' },

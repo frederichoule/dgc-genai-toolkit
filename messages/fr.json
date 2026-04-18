@@ -27,5 +27,6 @@
 	"explore_practices_title": "Bonnes pratiques",
 	"explore_practices_description": "Faire des choix éclairés dans vos flux de travail",
 	"explore_calculator_title": "Calculateur",
-	"explore_calculator_description": "Estimer et comparer votre utilisation de l'IA"
+	"explore_calculator_description": "Estimer et comparer votre utilisation de l'IA",
+	"calc_reasoning_tooltip": "Comprendre les impacts de l'IA et les paramètres clés qui les influencent est la première étape vers un usage plus conscient et responsable d'une technologie qui façonnera les décennies à venir."
 }

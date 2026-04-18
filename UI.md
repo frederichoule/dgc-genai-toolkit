@@ -24,17 +24,17 @@ Defined in `src/routes/layout.css`. All tokens are exposed as Tailwind utilities
 
 ### Colors
 
-| Token                   | Value     | Tailwind class examples                    |
-| ----------------------- | --------- | ------------------------------------------ |
-| `--color-background`    | `#060e08` | `bg-background`                            |
-| `--color-background-soft`| `#0b150f`| `bg-background-soft` (footer, raised surfaces) |
-| `--color-text-primary`  | `#ffffff` | `text-text-primary`                        |
-| `--color-text-secondary`| `#e6e7e6` | `text-text-secondary`                      |
-| `--color-text-tertiary` | `#b4b7b5` | `text-text-tertiary`                       |
-| `--color-brand-lime`    | `#cff154` | `text-brand-lime`, `ring-brand-lime`       |
-| `--color-brand-mint`    | `#a6edb4` | `text-brand-mint`                          |
-| `--color-brand-spring`  | `#60d086` | `text-brand-spring`                        |
-| `--color-brand-forest`  | `#30b354` | `bg-brand-forest/20`, `border-brand-forest`|
+| Token                     | Value     | Tailwind class examples                        |
+| ------------------------- | --------- | ---------------------------------------------- |
+| `--color-background`      | `#060e08` | `bg-background`                                |
+| `--color-background-soft` | `#0b150f` | `bg-background-soft` (footer, raised surfaces) |
+| `--color-text-primary`    | `#ffffff` | `text-text-primary`                            |
+| `--color-text-secondary`  | `#e6e7e6` | `text-text-secondary`                          |
+| `--color-text-tertiary`   | `#b4b7b5` | `text-text-tertiary`                           |
+| `--color-brand-lime`      | `#cff154` | `text-brand-lime`, `ring-brand-lime`           |
+| `--color-brand-mint`      | `#a6edb4` | `text-brand-mint`                              |
+| `--color-brand-spring`    | `#60d086` | `text-brand-spring`                            |
+| `--color-brand-forest`    | `#30b354` | `bg-brand-forest/20`, `border-brand-forest`    |
 
 The site is dark-themed: `#060e08` background with white/near-white text and lime/forest green accents.
 
@@ -51,19 +51,19 @@ Reusable CTA. Polymorphic: renders `<a>` when `href` is provided, otherwise `<bu
 
 #### Props
 
-| Prop        | Type                                  | Default    | Notes                                                             |
-| ----------- | ------------------------------------- | ---------- | ----------------------------------------------------------------- |
-| `variant`   | `'white' \| 'outline'`                | `'white'`  | Visual style.                                                     |
-| `size`      | `'sm' \| 'md' \| 'lg'`                | `'md'`     | Controls padding, font size, icon size, radius.                   |
-| `href`      | `string`                              | —          | If set, renders `<a>`. Otherwise `<button>`.                      |
-| `type`      | `'button' \| 'submit' \| 'reset'`     | `'button'` | Only applied when rendering as `<button>`.                        |
-| `disabled`  | `boolean`                             | `false`    | Anchors get `aria-disabled` + `tabindex="-1"` + pointer-events disabled. |
-| `fullWidth` | `boolean`                             | `false`    | Stretches to container via `w-full`.                              |
-| `arrow`     | `boolean`                             | `false`    | Shows trailing `ArrowRight` from lucide.                          |
-| `icon`      | `Snippet`                             | —          | Custom trailing icon snippet. Overrides `arrow` when provided.    |
-| `onclick`   | `(e: MouseEvent) => void`             | —          |                                                                   |
-| `class`     | `string`                              | `''`       | Escape hatch for one-off overrides.                               |
-| `children`  | `Snippet` (required)                  | —          | Label content.                                                    |
+| Prop        | Type                              | Default    | Notes                                                                    |
+| ----------- | --------------------------------- | ---------- | ------------------------------------------------------------------------ |
+| `variant`   | `'white' \| 'outline'`            | `'white'`  | Visual style.                                                            |
+| `size`      | `'sm' \| 'md' \| 'lg'`            | `'md'`     | Controls padding, font size, icon size, radius.                          |
+| `href`      | `string`                          | —          | If set, renders `<a>`. Otherwise `<button>`.                             |
+| `type`      | `'button' \| 'submit' \| 'reset'` | `'button'` | Only applied when rendering as `<button>`.                               |
+| `disabled`  | `boolean`                         | `false`    | Anchors get `aria-disabled` + `tabindex="-1"` + pointer-events disabled. |
+| `fullWidth` | `boolean`                         | `false`    | Stretches to container via `w-full`.                                     |
+| `arrow`     | `boolean`                         | `false`    | Shows trailing `ArrowRight` from lucide.                                 |
+| `icon`      | `Snippet`                         | —          | Custom trailing icon snippet. Overrides `arrow` when provided.           |
+| `onclick`   | `(e: MouseEvent) => void`         | —          |                                                                          |
+| `class`     | `string`                          | `''`       | Escape hatch for one-off overrides.                                      |
+| `children`  | `Snippet` (required)              | —          | Label content.                                                           |
 
 #### Variants
 
@@ -90,16 +90,12 @@ Buttons have **square corners** (no border radius) across all sizes.
 
 ```svelte
 <script>
-  import Button from '$lib/components/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
-<Button variant="white" arrow href="/calculator" fullWidth>
-  Estimate your AI footprint
-</Button>
+<Button variant="white" arrow href="/calculator" fullWidth>Estimate your AI footprint</Button>
 
-<Button variant="outline" href="/guide" fullWidth>
-  Explore the Best Practices
-</Button>
+<Button variant="outline" href="/guide" fullWidth>Explore the Best Practices</Button>
 ```
 
 ### `Navbar` — `src/lib/components/Navbar.svelte`
@@ -110,6 +106,46 @@ Sticky top navigation. Dark background, responsive (desktop list + mobile hambur
 - Active link: `text-text-primary` + `underline underline-offset-8 decoration-1`, plus `aria-current="page"`. Active state is determined by `page.url.pathname.endsWith(href)`.
 - Logo mark: lime-on-forest square with `DGC` wordmark
 - Mobile menu uses an inline SVG hamburger/close icon
+
+### `Tooltip` — `src/lib/components/Tooltip.svelte`
+
+Small info bubble anchored above a trigger button. Use next to form labels or anywhere a short explanation helps without cluttering the layout. Works identically on desktop (click) and mobile (tap) — opens on trigger click, dismisses on outside click or Escape.
+
+#### Props
+
+| Prop      | Type     | Default              | Notes                                                           |
+| --------- | -------- | -------------------- | --------------------------------------------------------------- |
+| `content` | `string` | — (required)         | Tooltip body text.                                              |
+| `label`   | `string` | `'More information'` | `aria-label` for the trigger button. Localize when user-facing. |
+
+#### Behavior
+
+- Renders an `Info` icon (lucide) as the trigger. Sized `16`, `strokeWidth={1.75}`, `text-text-tertiary` → hover `text-text-primary`.
+- Bubble positions above the trigger (`bottom-full`, centred), with a rotated-square down-arrow.
+- Bubble width clamps to `min(20rem, 100vw − 2rem)` so it stays inside the viewport on mobile.
+- Focus ring matches the rest of the app (`focus-visible:ring-2 focus-visible:ring-brand-lime`).
+
+#### Usage
+
+Standalone:
+
+```svelte
+<Tooltip content="Short explanation goes here." />
+```
+
+Most often passed via `Select.tooltip` — see below.
+
+### `Select` — `src/lib/components/Select.svelte`
+
+Styled `<select>` with a label. Passes the `tooltip` prop to render an info icon + `Tooltip` next to the label.
+
+| Prop      | Type       | Default      | Notes                                             |
+| --------- | ---------- | ------------ | ------------------------------------------------- |
+| `id`      | `string`   | — (required) | `<select>` id + `<label for>` target.             |
+| `label`   | `string`   | — (required) | Label text.                                       |
+| `value`   | `string`   | — (required) | Bindable (`bind:value`).                          |
+| `options` | `Option[]` | — (required) | `{ value, label }` list.                          |
+| `tooltip` | `string`   | —            | When set, renders an info icon next to the label. |
 
 ### `Footer` — `src/lib/components/Footer.svelte`
 

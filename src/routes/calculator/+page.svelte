@@ -177,7 +177,7 @@
 				provider
 			);
 		} else if (selectedTask === 'image') {
-			computed = calculateImage(imageAttempts, imageImagesPerIteration, provider);
+			computed = calculateImage(imageAttempts, imageImagesPerIteration, imageResolution, provider);
 		} else if (selectedTask === 'video') {
 			computed = calculateVideo(
 				videoAttempts,

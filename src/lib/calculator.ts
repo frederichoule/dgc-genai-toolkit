@@ -84,10 +84,9 @@ const configs: Record<string, ModelConfig> = {
 };
 
 const REASONING_OVERHEAD = 800;
-const TOKEN_IMAGE_FACTOR = 4096;
 const TOKEN_FRAME_FACTOR_HD = 450;
 const TOKEN_FRAME_FACTOR_FHD = 1013;
-const TOKEN_AUDIO_FACTOR = 450;
+const TOKEN_AUDIO_FACTOR = 300;
 const DEFAULT_PROMPT_TOKENS = 50;
 
 export interface Result {
@@ -111,16 +110,12 @@ function compute(
 	const inferenceTimeS = timeInputS + timeOutputS;
 	const inferenceTimeH = inferenceTimeS / 3600;
 
-	const power =
-		(cfg.nGpu * cfg.pGpu * cfg.utilGpu + cfg.pBase * cfg.utilServer) / cfg.batchSize;
+	const power = (cfg.nGpu * cfg.pGpu * cfg.utilGpu + cfg.pBase * cfg.utilServer) / cfg.batchSize;
 
 	const energyPerGen = power * inferenceTimeH;
 	const usageImpact = energyPerGen * cfg.pue * carbonIntensity;
 	const embeddedImpact =
-		(cfg.nGpu *
-			cfg.embeddedImpactGpu *
-			cfg.embeddedServerOverhead *
-			inferenceTimeH) /
+		(cfg.nGpu * cfg.embeddedImpactGpu * cfg.embeddedServerOverhead * inferenceTimeH) /
 		cfg.lifespanGpu /
 		cfg.batchSize;
 	const co2PerGen = usageImpact + embeddedImpact;
@@ -148,13 +143,25 @@ export function calculateText(
 	return compute(tokensInput, tokensOutput, 1, providers[provider], configs.text);
 }
 
+function imageTokens(resolution: string): number {
+	const [w, h] = resolution.split('x').map(Number);
+	return (w / 16) * (h / 16);
+}
+
 export function calculateImage(
 	iterations: number,
 	imagesPerGen: number,
+	resolution: string,
 	provider: string
 ): Result {
-	const tokensOutput = TOKEN_IMAGE_FACTOR * imagesPerGen;
-	return compute(DEFAULT_PROMPT_TOKENS, tokensOutput, iterations, providers[provider], configs.image);
+	const tokensOutput = imageTokens(resolution) * imagesPerGen;
+	return compute(
+		DEFAULT_PROMPT_TOKENS,
+		tokensOutput,
+		iterations,
+		providers[provider],
+		configs.image
+	);
 }
 
 export function calculateVideo(
@@ -166,16 +173,24 @@ export function calculateVideo(
 ): Result {
 	const tokenFactor = resolution === 'HD' ? TOKEN_FRAME_FACTOR_HD : TOKEN_FRAME_FACTOR_FHD;
 	const tokensOutput = durationS * fps * tokenFactor;
-	return compute(DEFAULT_PROMPT_TOKENS, tokensOutput, iterations, providers[provider], configs.video);
+	return compute(
+		DEFAULT_PROMPT_TOKENS,
+		tokensOutput,
+		iterations,
+		providers[provider],
+		configs.video
+	);
 }
 
-export function calculateAudio(
-	iterations: number,
-	durationS: number,
-	provider: string
-): Result {
+export function calculateAudio(iterations: number, durationS: number, provider: string): Result {
 	const tokensOutput = durationS * TOKEN_AUDIO_FACTOR;
-	return compute(DEFAULT_PROMPT_TOKENS, tokensOutput, iterations, providers[provider], configs.audio);
+	return compute(
+		DEFAULT_PROMPT_TOKENS,
+		tokensOutput,
+		iterations,
+		providers[provider],
+		configs.audio
+	);
 }
 
 export const co2Equivalences = [

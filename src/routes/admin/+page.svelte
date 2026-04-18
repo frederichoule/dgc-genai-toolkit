@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import Button from '$lib/components/Button.svelte';
 	import { FileText } from 'lucide-svelte';
 </script>
 
@@ -29,9 +28,5 @@
 				</div>
 			</div>
 		</a>
-	</div>
-
-	<div class="pt-4">
-		<Button variant="outline" size="sm" href={resolve('/admin/cms')}>Open CMS</Button>
 	</div>
 </div>

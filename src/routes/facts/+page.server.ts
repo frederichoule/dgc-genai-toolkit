@@ -3,6 +3,7 @@ import { getLocale } from '$lib/paraglide/runtime';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ platform }) => {
-	const { frontmatter, html } = await getContent(platform!.env.DB, 'facts', getLocale());
-	return { frontmatter, html };
+	const locale = getLocale();
+	const { frontmatter, html } = await getContent(platform!.env.DB, 'facts', locale);
+	return { frontmatter, html, locale };
 };

@@ -16,11 +16,23 @@ const config = {
 			mode: 'auto',
 			directives: {
 				'default-src': ['self'],
-				'script-src': ['self'],
+				'script-src': ['self', 'https://www.googletagmanager.com'],
 				'style-src': ['self', 'unsafe-inline'],
-				'img-src': ['self', 'data:'],
+				'img-src': [
+					'self',
+					'data:',
+					'https://www.googletagmanager.com',
+					'https://www.google-analytics.com',
+					'https://*.google-analytics.com'
+				],
 				'font-src': ['self'],
-				'connect-src': ['self'],
+				'connect-src': [
+					'self',
+					'https://www.googletagmanager.com',
+					'https://www.google-analytics.com',
+					'https://*.google-analytics.com',
+					'https://*.analytics.google.com'
+				],
 				'object-src': ['none'],
 				'base-uri': ['self'],
 				'form-action': ['self'],

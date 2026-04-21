@@ -1,74 +1,91 @@
 ---
 eyebrow: À propos de la méthodologie du calculateur
-title: Estimer l'impact environnemental de l'IA générative selon différents cas d'usage
+title: Estimez la consommation d'énergie et l'empreinte carbone de votre utilisation de l'IA générative
 ---
 
-Comprendre les impacts de l'IA et les paramètres clés qui les influencent est la première étape vers un usage plus conscient et responsable d'une technologie qui façonnera les décennies à venir.
+Les outils d'IA générative s'intègrent de plus en plus dans les flux de travail créatifs quotidiens, qu’il s’agisse de la préparation de documents à la génération d'images, en passant par la production vidéo et audio. Derrière chaque utilisation se cache un impact environnemental qui n'est pas toujours visible.
 
-Bien que l'IA puisse avoir des impacts sur de nombreux aspects de notre société et de nos écosystèmes, nous nous concentrons ici spécifiquement sur les impacts environnementaux, en particulier la consommation d'énergie et les émissions de carbone, car ces deux indicateurs sont intrinsèquement liés par la transition énergie-carbone amorcée avec l'Accord de Paris (2015), visant à contenir « l'élévation de la température moyenne mondiale nettement en dessous de 2 °C par rapport aux niveaux préindustriels » et à poursuivre les efforts « pour limiter cette hausse à 1,5 °C par rapport aux niveaux préindustriels ».
+Ce calculateur est un moyen simple d'estimer la consommation d'énergie et l'empreinte carbone associées aux tâches courantes de l'IA générative, et de mieux comprendre comment les différents types d'utilisation contribuent à votre impact global.
 
-## Approche
 
-Nous cherchons à évaluer et à agréger les impacts environnementaux des services d'IA au moyen d'une approche basée sur l'usage.
+## Comment utiliser le calculateur
 
-Nous avons conçu cette méthodologie pour qu'elle soit transparente, sourcée, reproductible et aussi représentative que possible, compte tenu des données et des études disponibles au moment de son élaboration (février 2026). Ce domaine évoluant rapidement, nous encourageons les commentaires et l'amélioration continue de la méthodologie.
+Le calculateur se veut être flexible et peut être utilisé à deux niveaux en fonction de vos besoins.
 
-## Cas d'usage de l'IA
+### Mode de base
 
-Avant d'estimer les impacts, nous avons cherché à comprendre comment les créateurs audiovisuels intègrent l'IA dans leur travail et quels types de systèmes sont utilisés en conséquence. Des sondages en ligne ont révélé divers cas d'usage, que nous avons simplifiés et regroupés en quatre grandes catégories :
+Estimez rapidement votre impact :
+* Saisissez des paramètres d'utilisation simples (texte, image, vidéo, audio).
+* Obtenez une estimation globale de la consommation d'énergie et des émissions de carbone.
+* Visualisez votre impact à l'aide d'équivalents clairs.
 
-- Lire un PDF de 100 pages et générer un résumé d'une page
-- Générer une image photoréaliste 2K à partir d'un prompt textuel (plusieurs itérations)
-- Générer une courte vidéo HD à partir d'un prompt textuel
-- Générer un extrait audio à partir d'un prompt textuel
+### Mode avancé
+Obtenez une estimation plus détaillée:
+* Affinez les principaux paramètres (type de modèle, jetons, durée, itérations).
+* Reflétez mieux des flux de travail ou des contextes de production spécifiques.
+* Comparez différents types d'utilisation de l'IA avec une plus grande précision.
 
-Ces cas d'usage visent à refléter des flux de travail créatifs réels dans l'industrie de l'écran.
+Ce mode est conçu pour les utilisateur.trices qui souhaitent une compréhension granulaire de leur impact.
 
-## Approche cycle de vie
+## Méthodologie du calculateur 
 
-Pour estimer correctement l'impact d'un service web, chaque partie du système qui permet de fournir le service doit être incluse. Les trois principales composantes typiques d'un système numérique sont les appareils des utilisateurs, les réseaux et les centres de données. Pour être exhaustif, la fabrication comme l'usage doivent être pris en compte.
+### Estimation de l’impact environnemental de l’IA générative pour différents cas d’utilisation
+Comprendre les impacts de l’IA et les principaux paramètres qui les influencent est la première étape vers une utilisation plus consciente et responsable d’une technologie qui façonnera les décennies à venir.
+Si l’IA peut entraîner des conséquences profondes sur plusieurs aspects de notre société et de nos écosystèmes, nous nous concentrons ici spécifiquement sur les impacts environnementaux, en particulier la consommation d’énergie et les émissions de carbone. Ces indicateurs sont intrinsèquement liés par la transition énergétique et carbone mise en œuvre par l'Accord de Paris (2015), qui vise à maintenir « l'augmentation de la température moyenne mondiale bien en dessous de 2°C au-dessus des niveaux préindustriels » et à poursuivre les efforts « pour limiter l'augmentation de la température à 1,5°C au-dessus des niveaux préindustriels ».
 
-La méthodologie utilisée pour estimer l'impact environnemental d'un service s'appelle l'Analyse du Cycle de Vie (ACV). Elle est décrite dans les normes ISO 14040 et 14044, ainsi que dans l'UIT L.1450.
+### Approche
+Nous visons à évaluer et à agréger les impacts environnementaux des services d'IA par le biais d’une approche basée sur l'utilisation.
+Nous tenions à ce que cette méthodologie soit transparente, crédible, reproductible et aussi représentative que possible en nous appuyant sur des études évaluées par des pairs disponibles au moment de son élaboration (février 2026).
+Ce domaine évoluant rapidement, nous améliorerons continuellement la méthodologie et invitons les commentaires.
 
-Cette approche est beaucoup plus complète que les calculateurs de carbone web, qui reposent uniquement sur des statistiques globales. Elle permet d'estimer l'impact au moyen d'une analyse multicritère (tenant compte de plus que la seule empreinte carbone) et prend en compte toutes les phases du cycle de vie d'un produit ou d'un service. Dans ce projet, nous nous conformerons aussi étroitement que possible aux exigences de la méthodologie ACV et utiliserons les données environnementales les plus récentes et les plus cohérentes disponibles.
+### Cas d’utilisation de l’IA
+Avant d’estimer les impacts, nous avons cherché à comprendre comment les créateur·trices audiovisuel·les intègrent l’IA dans leur travail et quels types de systèmes sont utilisés. Des sondages réalisés en ligne ont révélé divers cas d'utilisation, que nous avons simplifiés et regroupés en quatre catégories principales :
+1. Lire un PDF de 100 pages et générer un résumé d'une page.
+2. Générer une image photoréaliste en 2K à partir d'une consigne textuelle (itérations multiples).
+3. Générer une courte vidéo HD à partir d'une consigne textuelle.
+4. Générer un extrait audio à partir d'une consigne textuelle.
 
-## Approche de modélisation
+Ces cas d'utilisation visent à refléter les flux de travail créatifs réels dans l'industrie audiovisuelle.
 
-La collecte de données primaires sur l'ensemble des couches des systèmes d'IA reste difficile, en particulier lorsqu'on dépend de services tiers. Deux approches sont généralement utilisées : la modélisation ascendante (bottom-up) et la modélisation descendante (top-down).
+### Approche du cycle de vie
+Pour estimer correctement l'impact d'un service Internet, il faut inclure tous les éléments du système qui en permettent la fourniture. Les trois principaux éléments d'un système numérique sont généralement les appareils des utilisateur.trices, les réseaux et les centres de données. Pour être exhaustif, il faut également inclure la fabrication ou l'utilisation.
 
-Nous adoptons une approche ascendante, qui estime les impacts à partir d'une activité granulaire (comme l'usage au niveau des tokens) et extrapole la consommation au niveau du système. Bien que plus complexe, cette approche est mieux adaptée aux systèmes d'IA, où l'impact environnemental se concentre largement dans l'infrastructure dorsale (centres de données et calcul).
+La méthodologie utilisée pour estimer l'impact environnemental d'un service s'appelle l'analyse du cycle de vie (ACV). Elle est décrite dans les normes ISO 14040 et 14044, ainsi que dans la norme ITU L.1410.
 
-## Modélisation spécifique à l'IA
+Cette approche est bien plus complète que certains calculateurs de carbone en ligne qui s'appuient généralement sur des statistiques mondiales. Elle permet d'estimer l'impact à l'aide d'une analyse multicritères (qui ne se limite pas à l'empreinte carbone) et prend en compte toutes les phases du cycle de vie d'un produit ou d'un service. Dans le cadre de ce projet, nous respecterons autant que possible les exigences de la méthodologie ACV et utiliserons les données environnementales les plus récentes et les plus cohérentes disponibles.
 
-Pour estimer l'inférence des grands modèles de langage (LLM), nous nous appuyons sur la méthodologie développée par **Ecologits / CodeCarbon**, qui fournit un cadre de référence pour estimer les impacts environnementaux des interactions avec des agents conversationnels.
+### Approche de modélisation
+La collecte de données primaires à tous les niveaux des systèmes d'IA reste un défi, en particulier lorsqu'on s'appuie sur des services tiers. Deux approches sont généralement utilisées, à savoir la modélisation ascendante et la modélisation descendante.
+Nous adoptons une approche ascendante qui estime les impacts sur la base d'activités granulaires (telles que l'utilisation au niveau des jetons) et extrapole la consommation au niveau du système.
+Bien que plus complexe, cette approche est mieux adaptée aux systèmes d'IA, où l'impact environnemental est largement concentré dans l'infrastructure dorsale (centres de données et calcul).
 
-Nous conservons les limites initiales du système, en nous concentrant uniquement sur l'inférence, incluant :
 
-- La consommation énergétique des GPU et des serveurs
-- Les coûts indirects des centres de données (refroidissement et infrastructure)
+### Modélisation spécifique à l'IA
+Pour estimer l'inférence des grands modèles de langage (GML), nous nous appuyons sur la méthodologie développée par Ecologits / CodeCarbon qui fournit un cadre de référence pour estimer les impacts environnementaux des interactions avec les robots chat.
 
-Nous excluons :
+Nous conservons les limites du système d'origine en nous concentrant uniquement sur l'inférence, notamment :
+* La consommation d'énergie des UTG et des serveurs.
+* Les frais généraux des centres de données (refroidissement et infrastructure).
 
-- L'entraînement des modèles
-- Le stockage des données
-- Les appareils des utilisateurs finaux
-- Les impacts réseau
+Nous excluons:
+* La formation de modèles.
+* Le stockage des données.
+* Les appareils des utilisateur.trices finaux.finales.
+* Les impacts sur le réseau.
 
-Ces exclusions reflètent les limites actuelles des données et la cohérence méthodologique.
+Ces exclusions reflètent les limites des données et la cohérence méthodologique.
+Pour étendre le modèle au-delà des systèmes textuels, nous adaptons la modélisation basée sur les jetons à la génération d'images, d'audio et de vidéo en nous inspirant du « One Token Model » développé par Antarctica.
 
-Pour étendre le modèle au-delà des systèmes textuels, nous adaptons la modélisation basée sur les tokens à la génération d'images, d'audio et de vidéo, en nous inspirant du « One Token Model » développé par Antarctica.
+### De la consommation d'énergie à l'impact environnemental
 
-## De l'énergie à l'impact environnemental
+Une fois la consommation d'énergie estimée pour chaque cas d'utilisation, elle est convertie en indicateurs d'impact environnemental.
 
-Une fois la consommation énergétique estimée pour chaque cas d'usage, elle est convertie en indicateurs d'impact environnemental. L'impact total inclut :
+L'impact total comprend:
+* __Impact intrinsèque__ : une part des émissions associées à la fabrication des UTG et des serveurs, répartie sur leur durée de vie.
+* __Impact lié à l'utilisation__ : les émissions associées à la consommation d'électricité pendant l'inférence.
 
-- **Impact incorporé :** une part des émissions associées à la fabrication des GPU et des serveurs, répartie sur leur durée de vie
-- **Impact d'usage :** les émissions associées à la consommation d'électricité durant l'inférence
+Nous tenons compte des efficacités du centre de données (ECD) et des variations de l'intensité carbone de l'électricité entre les régions afin de garantir que les résultats reflètent les conditions réelles.
 
-Nous tenons compte de l'efficacité des centres de données (PUE) et des variations de l'intensité carbone de l'électricité selon les régions, afin que les résultats reflètent les conditions réelles.
+__Cette méthodologie vise à fournir des estimations transparentes et pratiques, et non des mesures absolues.__
 
-Cette méthodologie vise à fournir des estimations transparentes et pratiques, et non des mesures absolues.
-
-À mesure que les technologies d'IA évoluent et que de nouvelles données deviennent disponibles, le modèle continuera d'être affiné et amélioré.
-
-Consulter la [méthodologie complète](#)
+__Le modèle continuera d'être affiné et optimisé au fil et à mesure que les technologies d'IA évoluent et que de nouvelles données deviennent disponibles.__

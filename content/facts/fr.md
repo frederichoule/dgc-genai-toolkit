@@ -1,8 +1,12 @@
 ---
-title: Fiche d'information
+title: Faits et données sur l'IA générative
+
 eyebrow: GUIDE
 ---
 
-Il n'existe pas de manière unique d'utiliser l'IA générative à faible impact. L'empreinte environnementale de ces outils dépend de la façon dont ils sont utilisés, de ce qu'ils remplacent et de l'échelle à laquelle ils sont déployés.
+Les systèmes d'IA générative s'appuient sur une infrastructure informatique à grande échelle qui consomme de l'énergie et des ressources à chaque étape de leur utilisation.
 
-Les bonnes pratiques qui suivent sont conçues pour soutenir une prise de décision éclairée dans les scénarios de production courants, afin d'aider les créateurs à concilier considérations créatives, opérationnelles et environnementales.
+Dans le secteur audiovisuel, ces systèmes s'intègrent de plus en plus dans les flux de travail créatifs et techniques, du développement initial jusqu’à à la postproduction.
+
+Cette section présente les principales sources d'impact environnemental et explique comment elles s'inscrivent dans des contextes de production concrets.
+

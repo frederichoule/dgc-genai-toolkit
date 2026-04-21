@@ -21,6 +21,17 @@
 	let ogImage = $derived(`${SITE_ORIGIN}/og_${currentLocale}.png`);
 	let canonicalUrl = $derived(`${SITE_ORIGIN}${page.url.pathname}`);
 
+	const descriptionByPath: Record<string, () => string> = {
+		'/': m.desc_home,
+		'/about': m.desc_about,
+		'/calculator': m.desc_calculator,
+		'/facts': m.desc_facts,
+		'/faq': m.desc_faq,
+		'/glossary': m.desc_glossary,
+		'/guide': m.desc_guide
+	};
+	let description = $derived((descriptionByPath[basePath] ?? m.site_description)());
+
 	onMount(() => {
 		initCo2Tracker();
 	});
@@ -41,12 +52,12 @@
 		{/each}
 		<link rel="alternate" hreflang="x-default" href="{SITE_ORIGIN}{localizeHref(basePath, { locale: 'en' })}" />
 
-		<meta name="description" content={m.site_description()} />
+		<meta name="description" content={description} />
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={m.site_name()} />
 		<meta property="og:title" content={m.title_home()} />
-		<meta property="og:description" content={m.site_description()} />
+		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:width" content="1200" />
@@ -61,7 +72,7 @@
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={m.title_home()} />
-		<meta name="twitter:description" content={m.site_description()} />
+		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 		<meta name="twitter:image:alt" content={m.site_name()} />
 	{/if}

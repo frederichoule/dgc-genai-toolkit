@@ -1,5 +1,5 @@
 ---
-hero_title: Understand, measure, and reduce the environmental impact of AI in film and television production
+hero_title: Understand, measure, and reduce the environmental impact of AI in film & television production
 howto_title: How to use this toolkit
 howto_intro: This toolkit is designed as a simple decision-support tool for understanding and reducing the impact of generative AI in your workflows.
 howto_facts_title: See the impact

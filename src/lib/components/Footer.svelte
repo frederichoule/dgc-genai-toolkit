@@ -28,6 +28,11 @@
 
 	const year = new Date().getFullYear();
 
+	async function openCookiePreferences() {
+		const { showCookiePreferences } = await import('$lib/cookieConsent');
+		showCookiePreferences();
+	}
+
 	const sizeLabel = $derived.by(() => {
 		const bytes = pageMetrics.bytes;
 		if (bytes == null) return '—';
@@ -123,6 +128,13 @@
 			<a href={localizeHref('/privacy')} class="transition-colors hover:text-text-primary">
 				{m.footer_privacy()}
 			</a>
+			<button
+				type="button"
+				onclick={openCookiePreferences}
+				class="cursor-pointer transition-colors hover:text-text-primary"
+			>
+				{m.footer_cookie_preferences()}
+			</button>
 		</div>
 	</div>
 </footer>

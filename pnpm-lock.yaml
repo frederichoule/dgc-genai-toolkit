@@ -26,6 +26,9 @@ importers:
       marked:
         specifier: ^18.0.2
         version: 18.0.2
+      vanilla-cookieconsent:
+        specifier: ^3.1.0
+        version: 3.1.0
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -2295,6 +2298,9 @@ packages:
     resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
 
+  vanilla-cookieconsent@3.1.0:
+    resolution: {integrity: sha512-/McNRtm/3IXzb9dhqMIcbquoU45SzbN2VB+To4jxEPqMmp7uVniP6BhGLjU8MC7ZCDsNQVOp27fhQTM/ruIXAA==}
+
   vite@8.0.8:
     resolution: {integrity: sha512-dbU7/iLVa8KZALJyLOBOQ88nOXtNG8vxKuOT4I2mD+Ya70KPceF4IAmDsmU0h1Qsn5bPrvsY9HJstCRh3hG6Uw==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -4102,6 +4108,8 @@ snapshots:
   uuid@10.0.0: {}
 
   uuid@13.0.0: {}
+
+  vanilla-cookieconsent@3.1.0: {}
 
   vite@8.0.8(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0):
     dependencies:

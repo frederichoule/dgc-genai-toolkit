@@ -24,6 +24,7 @@
 		energyEquivalences,
 		type Result
 	} from '$lib/calculator';
+	import { trackEvent, gramsBucket, roundGrams } from '$lib/analytics';
 	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import NumberFlow from '@number-flow/svelte';
@@ -52,6 +53,7 @@
 
 	let selectedTask = $state<TaskType | null>(null);
 	let showAdvanced = $state(false);
+	let calculationCount = $state(0);
 
 	let pagesToRead = $state(defaults.pagesToRead);
 	let useReasoning = $state(defaults.useReasoning);
@@ -167,6 +169,33 @@
 
 	let resultsEl = $state<HTMLDivElement | null>(null);
 
+	function taskSpecificParams(task: TaskType): Record<string, unknown> {
+		switch (task) {
+			case 'summary':
+				return {
+					pages_to_read: pagesToRead,
+					use_reasoning: useReasoning === '1'
+				};
+			case 'image':
+				return {
+					image_attempts: imageAttempts,
+					image_resolution: imageResolution
+				};
+			case 'video':
+				return {
+					video_attempts: videoAttempts,
+					video_duration_s: videoDuration,
+					video_quality: videoQuality,
+					video_fps: videoFps
+				};
+			case 'audio':
+				return {
+					audio_attempts: audioAttempts,
+					audio_duration_s: audioDuration
+				};
+		}
+	}
+
 	async function submit() {
 		if (!selectedTask) return;
 		let computed: Result;
@@ -192,6 +221,20 @@
 			computed = calculateAudio(audioAttempts, audioDuration, provider);
 		}
 		submitted = { snapshot: currentSnapshot(), result: computed };
+
+		calculationCount += 1;
+		const gramsValue = computed.totalCo2Kg * 1000;
+		trackEvent('calc_calculated', {
+			task_type: selectedTask,
+			provider,
+			used_advanced: showAdvanced,
+			calculation_number: calculationCount,
+			grams_co2: roundGrams(gramsValue),
+			grams_bucket: gramsBucket(gramsValue),
+			kwh: Math.round(computed.totalEnergyKwh * 10000) / 10000,
+			...taskSpecificParams(selectedTask)
+		});
+
 		await tick();
 		if (window.matchMedia('(max-width: 1023px)').matches) {
 			resultsEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -317,6 +360,7 @@
 								selectedTask = task.id;
 								showAdvanced = false;
 								submitted = null;
+								trackEvent('calc_task_selected', { task_type: task.id });
 							}}
 						/>
 						{#if i === 1}

@@ -34,6 +34,7 @@
 
 	onMount(() => {
 		initCo2Tracker();
+		import('$lib/cookieConsent').then(({ initCookieConsent }) => initCookieConsent());
 	});
 </script>
 

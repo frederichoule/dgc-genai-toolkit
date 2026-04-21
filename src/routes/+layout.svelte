@@ -1,15 +1,21 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import type { Pathname } from '$app/types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
+	import { initCo2Tracker } from '$lib/client/co2Tracker';
 	import { deLocalizeHref, locales, localizeHref } from '$lib/paraglide/runtime';
 	import './layout.css';
 
 	let { children } = $props();
 
 	let isAdmin = $derived(deLocalizeHref(page.url.pathname).startsWith('/admin'));
+
+	onMount(() => {
+		initCo2Tracker();
+	});
 </script>
 
 <svelte:head>

@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
-	import { pageMetrics } from '$lib/state/pageMetrics.svelte';
+	import { pageMetrics } from '$lib/co2/metrics.svelte';
 	import logo from '$lib/assets/logo.svg';
 
 	const primary = [

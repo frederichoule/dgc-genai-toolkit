@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import { afterNavigate, beforeNavigate } from '$app/navigation';
 import { co2 as Co2 } from '@tgwf/co2';
-import { pageMetrics } from '$lib/state/pageMetrics.svelte';
+import { pageMetrics } from '$lib/co2/metrics.svelte';
 
 const GREEN_HOSTING = true;
 const SETTLE_MS = 500;

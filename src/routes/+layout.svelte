@@ -6,12 +6,20 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import { initCo2Tracker } from '$lib/co2/tracker.svelte';
-	import { deLocalizeHref, locales, localizeHref } from '$lib/paraglide/runtime';
+	import { deLocalizeHref, getLocale, locales, localizeHref } from '$lib/paraglide/runtime';
+	import { m } from '$lib/paraglide/messages.js';
 	import './layout.css';
+
+	const SITE_ORIGIN = 'https://genaitoolkit.dgcgreen.ca';
+	const OG_LOCALE_MAP: Record<string, string> = { en: 'en_CA', fr: 'fr_CA' };
 
 	let { children } = $props();
 
-	let isAdmin = $derived(deLocalizeHref(page.url.pathname).startsWith('/admin'));
+	let basePath = $derived(deLocalizeHref(page.url.pathname));
+	let isAdmin = $derived(basePath.startsWith('/admin'));
+	let currentLocale = $derived(getLocale());
+	let ogImage = $derived(`${SITE_ORIGIN}/og_${currentLocale}.png`);
+	let canonicalUrl = $derived(`${SITE_ORIGIN}${page.url.pathname}`);
 
 	onMount(() => {
 		initCo2Tracker();
@@ -22,6 +30,41 @@
 	<link rel="icon" href="/favicon.ico" sizes="32x32" />
 	<link rel="icon" href="/icon.svg" type="image/svg+xml" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" /><!-- 180×180 -->
+	{#if !isAdmin}
+		<link rel="canonical" href={canonicalUrl} />
+		{#each locales as locale (locale)}
+			<link
+				rel="alternate"
+				hreflang={locale}
+				href="{SITE_ORIGIN}{localizeHref(basePath, { locale })}"
+			/>
+		{/each}
+		<link rel="alternate" hreflang="x-default" href="{SITE_ORIGIN}{localizeHref(basePath, { locale: 'en' })}" />
+
+		<meta name="description" content={m.site_description()} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={m.site_name()} />
+		<meta property="og:title" content={m.title_home()} />
+		<meta property="og:description" content={m.site_description()} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={m.site_name()} />
+		<meta property="og:locale" content={OG_LOCALE_MAP[currentLocale]} />
+		{#each locales as locale (locale)}
+			{#if locale !== currentLocale}
+				<meta property="og:locale:alternate" content={OG_LOCALE_MAP[locale]} />
+			{/if}
+		{/each}
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={m.title_home()} />
+		<meta name="twitter:description" content={m.site_description()} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={m.site_name()} />
+	{/if}
 </svelte:head>
 
 <div class="min-h-svh bg-background text-text-primary">

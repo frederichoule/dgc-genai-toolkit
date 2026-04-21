@@ -21,6 +21,13 @@ export default defineConfig({
 					]
 				},
 				{
+					pattern: '/sitemap.xml',
+					localized: [
+						['en', '/sitemap.xml'],
+						['fr', '/sitemap.xml']
+					]
+				},
+				{
 					pattern: '/:path(.*)?',
 					localized: [
 						['en', '/en/:path(.*)?'],

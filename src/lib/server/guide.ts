@@ -3,9 +3,7 @@ import { getDb } from './db';
 import { contentBlock } from './db/schema';
 import { parseFrontmatter } from './content';
 import { marked } from '$lib/markdown';
-import { cached } from './cache';
-
-const TTL_MS = 5 * 60 * 1000;
+import { cachify } from './cache';
 
 export interface GuideCard {
 	id: string;
@@ -25,9 +23,9 @@ export interface GuideData {
 	sections: GuideSection[];
 }
 
-export async function getGuide(d1: D1Database, locale: string): Promise<GuideData> {
-	return cached(`guide:${locale}`, TTL_MS, async () => {
-		const db = getDb(d1);
+export async function getGuide(env: Env, locale: string): Promise<GuideData> {
+	return cachify(env.CACHE, `guide:${locale}`, async () => {
+		const db = getDb(env.DB);
 		const row = await db
 			.select({ body: contentBlock.body })
 			.from(contentBlock)

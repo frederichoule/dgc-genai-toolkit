@@ -6,8 +6,8 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ platform }) => {
 	const locale = getLocale();
 	const [guide, note] = await Promise.all([
-		getGuide(platform!.env.DB, locale),
-		getContent(platform!.env.DB, 'guide-note', locale)
+		getGuide(platform!.env, locale),
+		getContent(platform!.env, 'guide-note', locale)
 	]);
 	return { ...guide, note };
 };

@@ -5,7 +5,7 @@
 	import type { Pathname } from '$app/types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
-	import { initCo2Tracker } from '$lib/co2/tracker';
+	import { initCo2Tracker } from '$lib/co2/tracker.svelte';
 	import { deLocalizeHref, locales, localizeHref } from '$lib/paraglide/runtime';
 	import './layout.css';
 

@@ -15,11 +15,16 @@
 >
 	{#snippet image()}
 		<div class="relative aspect-square overflow-hidden">
-			<img
-				src="/images/about-hero.jpg"
-				alt=""
-				class="absolute inset-0 h-full w-full object-cover grayscale"
-			/>
+			<picture>
+				<source srcset="/images/about-hero.webp" type="image/webp" />
+				<img
+					src="/images/about-hero.jpg"
+					alt=""
+					class="absolute inset-0 h-full w-full object-cover grayscale"
+					loading="lazy"
+					decoding="async"
+				/>
+			</picture>
 			<div class="absolute inset-0 bg-brand-forest opacity-80 mix-blend-multiply"></div>
 		</div>
 	{/snippet}

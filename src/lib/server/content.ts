@@ -2,9 +2,7 @@ import { and, eq } from 'drizzle-orm';
 import { getDb } from './db';
 import { marked } from '$lib/markdown';
 import { contentBlock } from './db/schema';
-import { cached } from './cache';
-
-const TTL_MS = 5 * 60 * 1000;
+import { cachify } from './cache';
 
 export function parseFrontmatter(raw: string) {
 	const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -24,9 +22,9 @@ export function parseFrontmatter(raw: string) {
 	return { frontmatter, content: match[2] };
 }
 
-export async function getContent(d1: D1Database, slug: string, locale: string) {
-	return cached(`content:${slug}:${locale}`, TTL_MS, async () => {
-		const db = getDb(d1);
+export async function getContent(env: Env, slug: string, locale: string) {
+	return cachify(env.CACHE, `content:${slug}:${locale}`, async () => {
+		const db = getDb(env.DB);
 		const row = await db
 			.select({ body: contentBlock.body })
 			.from(contentBlock)

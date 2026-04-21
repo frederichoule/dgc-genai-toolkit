@@ -70,6 +70,9 @@
 						spellcheck="false"
 						class="h-[60svh] min-h-[400px] border border-white/15 bg-background-soft p-4 font-mono text-sm leading-relaxed text-text-primary focus:border-white/30 focus:outline-none"
 					></textarea>
+					{#if form?.errors?.body_en}
+						<p class="mt-2 text-sm text-red-400">{form.errors.body_en.join(', ')}</p>
+					{/if}
 				</div>
 				<div class="flex flex-col">
 					<span class="mb-2 text-xs tracking-wide text-text-tertiary uppercase">Preview</span>
@@ -97,6 +100,9 @@
 						spellcheck="false"
 						class="h-[60svh] min-h-[400px] border border-white/15 bg-background-soft p-4 font-mono text-sm leading-relaxed text-text-primary focus:border-white/30 focus:outline-none"
 					></textarea>
+					{#if form?.errors?.body_fr}
+						<p class="mt-2 text-sm text-red-400">{form.errors.body_fr.join(', ')}</p>
+					{/if}
 				</div>
 				<div class="flex flex-col">
 					<span class="mb-2 text-xs tracking-wide text-text-tertiary uppercase">Preview</span>

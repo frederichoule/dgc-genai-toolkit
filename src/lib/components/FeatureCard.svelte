@@ -20,6 +20,7 @@
 	}: Props = $props();
 
 	let wrapperClass = $derived(['flex flex-col gap-10', klass].filter(Boolean).join(' '));
+	let webpSrc = $derived(image.replace(/\.(jpe?g|png)$/i, '.webp'));
 </script>
 
 <article class={wrapperClass}>
@@ -31,13 +32,16 @@
 
 	<div class="grid grid-cols-1 gap-8 md:grid-cols-5 md:gap-10">
 		<div class="md:col-span-3">
-			<img
-				src={image}
-				alt={imageAlt}
-				class="aspect-video w-full object-cover"
-				loading="lazy"
-				decoding="async"
-			/>
+			<picture>
+				<source srcset={webpSrc} type="image/webp" />
+				<img
+					src={image}
+					alt={imageAlt}
+					class="aspect-video w-full object-cover"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</picture>
 		</div>
 
 		<div class="flex flex-col gap-8 md:col-span-2">

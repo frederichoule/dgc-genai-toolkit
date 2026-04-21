@@ -3,9 +3,7 @@ import { getDb } from './db';
 import { contentBlock } from './db/schema';
 import { parseFrontmatter } from './content';
 import { marked } from '$lib/markdown';
-import { cached } from './cache';
-
-const TTL_MS = 5 * 60 * 1000;
+import { cachify } from './cache';
 
 export interface FaqCard {
 	id: string;
@@ -25,9 +23,9 @@ export interface FaqData {
 	sections: FaqSection[];
 }
 
-export async function getFaq(d1: D1Database, locale: string): Promise<FaqData> {
-	return cached(`faq:${locale}`, TTL_MS, async () => {
-		const db = getDb(d1);
+export async function getFaq(env: Env, locale: string): Promise<FaqData> {
+	return cachify(env.CACHE, `faq:${locale}`, async () => {
+		const db = getDb(env.DB);
 		const row = await db
 			.select({ body: contentBlock.body })
 			.from(contentBlock)

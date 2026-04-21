@@ -4,6 +4,6 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ platform }) => {
 	const locale = getLocale();
-	const { frontmatter, html } = await getContent(platform!.env.DB, 'facts', locale);
+	const { frontmatter, html } = await getContent(platform!.env, 'facts', locale);
 	return { frontmatter, html, locale };
 };

@@ -8,6 +8,8 @@
 	}
 
 	let { title, description, href, bg, image }: Props = $props();
+
+	let webpSrc = $derived(image.replace(/\.(jpe?g|png)$/i, '.webp'));
 </script>
 
 <a
@@ -21,11 +23,16 @@
 		</div>
 	</div>
 	<div class="relative hidden h-full w-2/5 shrink-0 md:block">
-		<img
-			src={image}
-			alt=""
-			class="absolute inset-0 h-full w-full object-cover grayscale"
-		/>
+		<picture>
+			<source srcset={webpSrc} type="image/webp" />
+			<img
+				src={image}
+				alt=""
+				class="absolute inset-0 h-full w-full object-cover grayscale"
+				loading="lazy"
+				decoding="async"
+			/>
+		</picture>
 		<div class="absolute inset-0 {bg} opacity-60 mix-blend-multiply"></div>
 	</div>
 </a>

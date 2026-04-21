@@ -3,9 +3,7 @@ import { getDb } from './db';
 import { contentBlock } from './db/schema';
 import { parseFrontmatter } from './content';
 import { marked } from '$lib/markdown';
-import { cached } from './cache';
-
-const TTL_MS = 5 * 60 * 1000;
+import { cachify } from './cache';
 
 export interface GlossaryEntry {
 	id: string;
@@ -19,9 +17,9 @@ export interface GlossaryData {
 	entries: GlossaryEntry[];
 }
 
-export async function getGlossary(d1: D1Database, locale: string): Promise<GlossaryData> {
-	return cached(`glossary:${locale}`, TTL_MS, async () => {
-		const db = getDb(d1);
+export async function getGlossary(env: Env, locale: string): Promise<GlossaryData> {
+	return cachify(env.CACHE, `glossary:${locale}`, async () => {
+		const db = getDb(env.DB);
 		const row = await db
 			.select({ body: contentBlock.body })
 			.from(contentBlock)

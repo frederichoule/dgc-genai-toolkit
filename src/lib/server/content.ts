@@ -1,7 +1,10 @@
 import { and, eq } from 'drizzle-orm';
-import { marked } from 'marked';
 import { getDb } from './db';
+import { marked } from '$lib/markdown';
 import { contentBlock } from './db/schema';
+import { cached } from './cache';
+
+const TTL_MS = 5 * 60 * 1000;
 
 export function parseFrontmatter(raw: string) {
 	const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -22,15 +25,17 @@ export function parseFrontmatter(raw: string) {
 }
 
 export async function getContent(d1: D1Database, slug: string, locale: string) {
-	const db = getDb(d1);
-	const row = await db
-		.select({ body: contentBlock.body })
-		.from(contentBlock)
-		.where(and(eq(contentBlock.slug, slug), eq(contentBlock.locale, locale)))
-		.get();
-	if (!row) throw new Error(`Content not found: ${slug}/${locale}`);
+	return cached(`content:${slug}:${locale}`, TTL_MS, async () => {
+		const db = getDb(d1);
+		const row = await db
+			.select({ body: contentBlock.body })
+			.from(contentBlock)
+			.where(and(eq(contentBlock.slug, slug), eq(contentBlock.locale, locale)))
+			.get();
+		if (!row) throw new Error(`Content not found: ${slug}/${locale}`);
 
-	const { frontmatter, content } = parseFrontmatter(row.body);
-	const html = await marked(content);
-	return { frontmatter, html };
+		const { frontmatter, content } = parseFrontmatter(row.body);
+		const html = await marked.parse(content);
+		return { frontmatter, html };
+	});
 }

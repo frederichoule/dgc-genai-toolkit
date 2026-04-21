@@ -12,7 +12,7 @@
 
 <a
 	{href}
-	class="group {bg} flex h-72 items-end justify-between overflow-hidden opacity-90 transition-opacity duration-300 hover:opacity-100 md:h-[28rem]"
+	class="group {bg} flex h-60 items-end justify-between overflow-hidden opacity-90 transition-opacity duration-300 hover:opacity-100 md:h-[22rem]"
 >
 	<div class="flex h-full items-end p-8">
 		<div class="text-black">

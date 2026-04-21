@@ -1,13 +1,25 @@
 import { execSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { createInterface } from 'node:readline/promises';
+import { stdin, stdout } from 'node:process';
 
 const contentDir = 'content';
+const args = process.argv.slice(2);
+const skipConfirm = args.includes('--yes') || args.includes('-y');
+const slugFilter = args.find((a) => !a.startsWith('-'));
 const escape = (s) => `'${s.replace(/'/g, "''")}'`;
 const statements = [];
 
-for (const slug of readdirSync(contentDir)) {
+if (slugFilter && !existsSync(join(contentDir, slugFilter))) {
+	console.error(`Slug "${slugFilter}" not found under ${contentDir}/`);
+	process.exit(1);
+}
+
+const slugs = slugFilter ? [slugFilter] : readdirSync(contentDir);
+
+for (const slug of slugs) {
 	for (const file of readdirSync(join(contentDir, slug))) {
 		if (!file.endsWith('.md')) continue;
 		const locale = file.replace(/\.md$/, '');
@@ -18,10 +30,30 @@ for (const slug of readdirSync(contentDir)) {
 	}
 }
 
+const scope = slugFilter ? `slug "${slugFilter}"` : `ALL ${slugs.length} slugs`;
+console.log(
+	`About to upsert ${statements.length} content block(s) for ${scope} into D1 (remote).`
+);
+console.log('This will overwrite any edits made through the admin CMS for these slugs.');
+
+if (!skipConfirm) {
+	if (!stdin.isTTY) {
+		console.error('No TTY available. Re-run with --yes to skip confirmation.');
+		process.exit(1);
+	}
+	const rl = createInterface({ input: stdin, output: stdout });
+	const answer = (await rl.question('Proceed? (y/N) ')).trim().toLowerCase();
+	rl.close();
+	if (answer !== 'y' && answer !== 'yes') {
+		console.log('Aborted.');
+		process.exit(0);
+	}
+}
+
 const sql = statements.join('\n') + '\n';
 const dir = mkdtempSync(join(tmpdir(), 'seed-content-'));
 const sqlFile = join(dir, 'seed.sql');
 writeFileSync(sqlFile, sql);
 
-console.log(`Seeding ${statements.length} content block(s) to D1 (remote)…`);
+console.log(`Seeding…`);
 execSync(`npx wrangler d1 execute DB --remote --file="${sqlFile}"`, { stdio: 'inherit' });

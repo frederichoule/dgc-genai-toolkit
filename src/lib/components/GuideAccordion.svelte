@@ -4,9 +4,10 @@
 
 	interface Props {
 		sections: GuideSection[];
+		plain?: boolean;
 	}
 
-	let { sections }: Props = $props();
+	let { sections, plain = false }: Props = $props();
 
 	const colors = ['mint', 'lime', 'spring'] as const;
 	type Color = (typeof colors)[number];
@@ -29,7 +30,9 @@
 		{@const color = colorFor(si)}
 		<section class="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
 			<h2
-				class="text-2xl font-normal tracking-tight sm:text-3xl md:col-span-4 {titleText[color]}"
+				class="text-2xl font-normal tracking-tight sm:text-3xl md:col-span-4 {plain
+					? 'text-text-primary'
+					: titleText[color]}"
 			>
 				{section.title}
 			</h2>
@@ -40,6 +43,7 @@
 						title={card.title}
 						bodyHtml={card.bodyHtml}
 						{color}
+						{plain}
 						open={openId === card.id}
 						onToggle={() => (openId = openId === card.id ? null : card.id)}
 					/>

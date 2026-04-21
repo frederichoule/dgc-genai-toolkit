@@ -7,37 +7,35 @@
 	import calculatorIcon from '$lib/icons/calculator.svg';
 	import factsheetIcon from '$lib/icons/factsheet.svg';
 	import { m } from '$lib/paraglide/messages.js';
+
+	let { data } = $props();
+	let fm = $derived(data.frontmatter);
 </script>
 
 <svelte:head><title>{m.title_home()}</title></svelte:head>
 
 <section class="py-16">
 	<FeatureCard
-		title="Understand, measure, and reduce the environmental impact of AI in film and television production"
+		title={fm.hero_title}
 		image="/images/hero-filmset.jpg"
 		imageAlt="Film set with crew and equipment"
 	>
-		<p>
-			Generative AI is becoming part of everyday workflows, from pre-production and editing to
-			visual effects and post-production. These tools rely on energy-intensive infrastructure with a
-			real environmental footprint that often remains invisible to creators.
-		</p>
-		<p class="mt-4">
-			This toolkit helps make that impact visible and supports more informed decisions in your work.
-		</p>
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		<div class="markdown">{@html data.html}</div>
 		{#snippet actions()}
-			<Button variant="white" arrow href="/calculator" fullWidth>Estimate your GenAI footprint</Button>
-			<Button variant="outline" arrow href="/guide" fullWidth>Explore the Best Practices</Button>
+			<Button variant="white" arrow href="/calculator" fullWidth>
+				{m.hero_cta_calculator()}
+			</Button>
+			<Button variant="outline" arrow href="/guide" fullWidth>
+				{m.hero_cta_guide()}
+			</Button>
 		{/snippet}
 	</FeatureCard>
 </section>
 
 <section class="py-16">
-	<SectionIntro title="How to use this toolkit">
-		<p>
-			This toolkit is designed as a simple decision-support tool for understanding and reducing the
-			impact of generative AI in your workflows.
-		</p>
+	<SectionIntro title={fm.howto_title}>
+		<p>{fm.howto_intro}</p>
 	</SectionIntro>
 </section>
 
@@ -45,18 +43,18 @@
 	<div class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
 		<div class="flex max-w-xs flex-col items-start text-left">
 			<img src={factsheetIcon} alt="" class="mb-10 h-20 w-auto" />
-			<h3 class="mb-1 text-xl font-medium text-text-primary">{m.howto_facts_title()}</h3>
-			<p class="text-lg text-text-tertiary">{m.howto_facts_description()}</p>
+			<h3 class="mb-1 text-xl font-medium text-text-primary">{fm.howto_facts_title}</h3>
+			<p class="text-lg text-text-tertiary">{fm.howto_facts_description}</p>
 		</div>
 		<div class="flex max-w-xs flex-col items-start text-left">
 			<img src={bestpracticesIcon} alt="" class="mb-10 h-20 w-auto" />
-			<h3 class="mb-1 text-xl font-medium text-text-primary">{m.howto_practices_title()}</h3>
-			<p class="text-lg text-text-tertiary">{m.howto_practices_description()}</p>
+			<h3 class="mb-1 text-xl font-medium text-text-primary">{fm.howto_practices_title}</h3>
+			<p class="text-lg text-text-tertiary">{fm.howto_practices_description}</p>
 		</div>
 		<div class="flex max-w-xs flex-col items-start text-left">
 			<img src={calculatorIcon} alt="" class="mb-10 h-20 w-auto" />
-			<h3 class="mb-1 text-xl font-medium text-text-primary">{m.howto_calculator_title()}</h3>
-			<p class="text-lg text-text-tertiary">{m.howto_calculator_description()}</p>
+			<h3 class="mb-1 text-xl font-medium text-text-primary">{fm.howto_calculator_title}</h3>
+			<p class="text-lg text-text-tertiary">{fm.howto_calculator_description}</p>
 		</div>
 	</div>
 </section>

@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import Button from '$lib/components/Button.svelte';
-	import { marked } from 'marked';
+	import { marked } from '$lib/markdown';
 	import { ArrowLeft } from 'lucide-svelte';
 	import { untrack } from 'svelte';
 
@@ -17,8 +17,8 @@
 		return match ? match[1] : raw;
 	}
 
-	let previewEn = $derived(marked(stripFrontmatter(bodyEn)) as string);
-	let previewFr = $derived(marked(stripFrontmatter(bodyFr)) as string);
+	let previewEn = $derived(marked.parse(stripFrontmatter(bodyEn)) as string);
+	let previewFr = $derived(marked.parse(stripFrontmatter(bodyFr)) as string);
 </script>
 
 <svelte:head><title>{data.slug} | CMS | DGC Green</title></svelte:head>

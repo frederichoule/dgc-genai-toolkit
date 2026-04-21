@@ -30,7 +30,7 @@ const configs: Record<string, ModelConfig> = {
 		tputOutput: 30,
 		batchSize: 4,
 		nGpu: 8,
-		pBase: 4.6,
+		pBase: 0.575,
 		utilGpu: 0.7,
 		utilServer: 0.5,
 		pue: 1.15,
@@ -41,7 +41,7 @@ const configs: Record<string, ModelConfig> = {
 	},
 	image: {
 		tputInput: 15000,
-		tputOutput: 150,
+		tputOutput: 85,
 		batchSize: 1,
 		nGpu: 1,
 		pBase: 0.575,
@@ -58,7 +58,7 @@ const configs: Record<string, ModelConfig> = {
 		tputOutput: 1335,
 		batchSize: 1,
 		nGpu: 8,
-		pBase: 4.6,
+		pBase: 0.575,
 		utilGpu: 0.7,
 		utilServer: 0.5,
 		pue: 1.15,
@@ -72,7 +72,7 @@ const configs: Record<string, ModelConfig> = {
 		tputOutput: 600,
 		batchSize: 4,
 		nGpu: 1,
-		pBase: 4.6,
+		pBase: 0.575,
 		utilGpu: 0.7,
 		utilServer: 0.5,
 		pue: 1.15,
@@ -110,7 +110,7 @@ function compute(
 	const inferenceTimeS = timeInputS + timeOutputS;
 	const inferenceTimeH = inferenceTimeS / 3600;
 
-	const power = (cfg.nGpu * cfg.pGpu * cfg.utilGpu + cfg.pBase * cfg.utilServer) / cfg.batchSize;
+	const power = (cfg.nGpu * (cfg.pGpu * cfg.utilGpu + cfg.pBase * cfg.utilServer)) / cfg.batchSize;
 
 	const energyPerGen = power * inferenceTimeH;
 	const usageImpact = energyPerGen * cfg.pue * carbonIntensity;
@@ -145,7 +145,8 @@ export function calculateText(
 
 function imageTokens(resolution: string): number {
 	const [w, h] = resolution.split('x').map(Number);
-	return (w / 16) * (h / 16);
+	const side = Math.max(w, h);
+	return Math.round(43 * Math.sqrt(side) + 222);
 }
 
 export function calculateImage(

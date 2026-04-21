@@ -172,7 +172,7 @@
 			{#snippet icon()}
 				<Download class="size-5" strokeWidth={1.75} aria-hidden="true" />
 			{/snippet}
-			Download in PDF format <span class="text-sm">(XX Mo)</span>
+			{m.facts_download_pdf()} <span class="text-sm">(XX Mo)</span>
 		</Button>
 	</div>
 </SectionIntro>

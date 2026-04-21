@@ -2,6 +2,7 @@ import { error, fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { getDb } from '$lib/server/db';
 import { contentBlock } from '$lib/server/db/schema';
+import { invalidate } from '$lib/server/cache';
 import type { Actions, PageServerLoad } from './$types';
 
 const LOCALES = ['en', 'fr'] as const;
@@ -44,6 +45,11 @@ export const actions: Actions = {
 					target: [contentBlock.slug, contentBlock.locale],
 					set: { body, updatedAt: now }
 				});
+
+			invalidate(`content:${params.slug}:${locale}`);
+			if (params.slug === 'glossary') invalidate(`glossary:${locale}`);
+			if (params.slug === 'guide') invalidate(`guide:${locale}`);
+			if (params.slug === 'faq') invalidate(`faq:${locale}`);
 		}
 
 		return { saved: true };

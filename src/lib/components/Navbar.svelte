@@ -10,7 +10,8 @@
 		{ href: '/about', label: m.nav_about },
 		{ href: '/calculator', label: m.nav_calculator },
 		{ href: '/guide', label: m.nav_guide },
-		{ href: '/facts', label: m.nav_facts }
+		{ href: '/facts', label: m.nav_facts },
+		{ href: '/faq', label: m.nav_faq }
 	];
 
 	const isActive = (href: string) => page.url.pathname.endsWith(href);
@@ -19,7 +20,7 @@
 	const localeHref = $derived(localizeHref(page.url.pathname, { locale: otherLocale }));
 </script>
 
-<nav class="bg-background text-text-primary sticky top-0 z-50">
+<nav class="sticky top-0 z-50 bg-background text-text-primary">
 	<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 		<a href={localizeHref('/')} class="flex items-center">
 			<img src={logo} alt="DGC Green — Low Carbon Gen-AI Toolkit" class="h-8 w-auto" />
@@ -33,7 +34,7 @@
 							href={localizeHref(item.href)}
 							aria-current={isActive(item.href) ? 'page' : undefined}
 							class="text-sm transition-colors {isActive(item.href)
-								? 'text-text-primary underline underline-offset-8 decoration-1'
+								? 'text-text-primary underline decoration-1 underline-offset-8'
 								: 'text-text-secondary hover:text-text-primary'}"
 						>
 							{item.label()}
@@ -48,7 +49,7 @@
 						href={localeHref}
 						hreflang={otherLocale}
 						data-sveltekit-reload
-						class="text-text-secondary hover:text-text-primary text-sm uppercase transition-colors"
+						class="text-sm text-text-secondary uppercase transition-colors hover:text-text-primary"
 					>
 						{otherLocale}
 					</a>
@@ -57,7 +58,7 @@
 
 			<button
 				type="button"
-				aria-label="Toggle menu"
+				aria-label={m.nav_toggle_menu()}
 				aria-expanded={open}
 				onclick={() => (open = !open)}
 				class="text-text-primary md:hidden"
@@ -95,7 +96,7 @@
 							aria-current={isActive(item.href) ? 'page' : undefined}
 							onclick={() => (open = false)}
 							class="block text-lg {isActive(item.href)
-								? 'text-text-primary underline underline-offset-8 decoration-1'
+								? 'text-text-primary underline decoration-1 underline-offset-8'
 								: 'text-text-secondary hover:text-text-primary'}"
 						>
 							{item.label()}

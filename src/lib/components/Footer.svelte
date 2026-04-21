@@ -11,7 +11,10 @@
 		{ href: '/facts', label: m.nav_facts }
 	];
 
-	const secondary = [{ href: '/glossary', label: m.nav_glossary }];
+	const secondary = [
+		{ href: '/glossary', label: m.nav_glossary },
+		{ href: '/faq', label: m.nav_faq }
+	];
 
 	const otherLocale = $derived(getLocale() === 'en' ? 'fr' : 'en');
 	const localeHref = $derived(localizeHref(page.url.pathname, { locale: otherLocale }));

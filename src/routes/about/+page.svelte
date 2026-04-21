@@ -28,7 +28,7 @@
 			<div class="absolute inset-0 bg-brand-forest opacity-80 mix-blend-multiply"></div>
 		</div>
 	{/snippet}
-	<div class="markdown prose-h2:text-xl prose-h2:font-semibold prose-img:max-w-[200px]">
+	<div class="markdown prose-img:max-w-[200px]">
 		{@html data.html}
 	</div>
 </SectionIntro>

@@ -9,6 +9,7 @@
 		variant?: Variant;
 		size?: Size;
 		href?: string;
+		download?: string | boolean;
 		type?: 'button' | 'submit' | 'reset';
 		disabled?: boolean;
 		fullWidth?: boolean;
@@ -23,6 +24,7 @@
 		variant = 'white',
 		size = 'md',
 		href,
+		download,
 		type = 'button',
 		disabled = false,
 		fullWidth = false,
@@ -70,6 +72,7 @@
 {#if href}
 	<a
 		{href}
+		download={download === true ? '' : download}
 		class={classes}
 		aria-disabled={disabled || undefined}
 		tabindex={disabled ? -1 : undefined}

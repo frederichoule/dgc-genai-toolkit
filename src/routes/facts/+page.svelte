@@ -152,6 +152,18 @@
 	let { data } = $props();
 
 	const currentAssets = $derived(assets[data.locale as 'en' | 'fr']);
+
+	const pdfs: Record<'en' | 'fr', { href: string; size: string }> = {
+		en: {
+			href: '/pdf/FactSheet%20(PDF%20EN)_compressed.pdf',
+			size: '0.5 Mo'
+		},
+		fr: {
+			href: '/pdf/FactSheet%20(PDF%20FR)_compressed.pdf',
+			size: '0.5 Mo'
+		}
+	};
+	const pdf = $derived(pdfs[data.locale as 'en' | 'fr']);
 </script>
 
 <svelte:head><title>{m.title_facts()}</title></svelte:head>
@@ -168,11 +180,11 @@
 	</div>
 
 	<div class="pt-6">
-		<Button variant="white" size="md">
+		<Button variant="white" size="md" href={pdf.href} download>
 			{#snippet icon()}
 				<Download class="size-5" strokeWidth={1.75} aria-hidden="true" />
 			{/snippet}
-			{m.facts_download_pdf()} <span class="text-sm">(XX Mo)</span>
+			{m.facts_download_pdf()} <span class="text-sm">({pdf.size})</span>
 		</Button>
 	</div>
 </SectionIntro>

@@ -2,7 +2,8 @@
 	import { page } from '$app/state';
 	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
-	import logo from '$lib/assets/logo.svg';
+	import logoEn from '$lib/assets/logo_en.svg';
+	import logoFr from '$lib/assets/logo_fr.svg';
 
 	let open = $state(false);
 
@@ -18,6 +19,7 @@
 
 	const otherLocale = $derived(getLocale() === 'en' ? 'fr' : 'en');
 	const localeHref = $derived(localizeHref(page.url.pathname, { locale: otherLocale }));
+	const logo = $derived(getLocale() === 'fr' ? logoFr : logoEn);
 </script>
 
 <nav class="sticky top-0 z-50 bg-background text-text-primary">

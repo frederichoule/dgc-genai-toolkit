@@ -652,7 +652,7 @@
 <SectionIntro eyebrow={data.frontmatter.eyebrow} title={data.frontmatter.title} class="py-16">
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	<div
-		class="markdown prose-h2:mt-10 prose-h2:text-xl prose-h2:font-semibold prose-h2:text-text-primary prose-strong:text-text-primary prose-ul:list-disc prose-ul:space-y-1 prose-ul:pl-5"
+		class="markdown prose-ul:list-disc prose-ul:space-y-1 prose-ul:pl-5"
 	>
 		{@html data.html}
 	</div>

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { ExternalLink } from 'lucide-svelte';
 	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 	import { pageMetrics } from '$lib/co2/metrics.svelte';
-	import logo from '$lib/assets/logo.svg';
+	import logoEn from '$lib/assets/logo_en.svg';
+	import logoFr from '$lib/assets/logo_fr.svg';
 
 	const primary = [
 		{ href: '/about', label: m.nav_about },
@@ -13,12 +15,14 @@
 	];
 
 	const secondary = [
-		{ href: '/glossary', label: m.nav_glossary },
-		{ href: '/faq', label: m.nav_faq }
+		// { href: '/glossary', label: m.nav_glossary },
+		{ href: '/faq', label: m.nav_faq },
+		{ href: 'mailto:DGCgreen@dgc.ca', label: m.footer_contact, external: true }
 	];
 
 	const otherLocale = $derived(getLocale() === 'en' ? 'fr' : 'en');
 	const localeHref = $derived(localizeHref(page.url.pathname, { locale: otherLocale }));
+	const logo = $derived(getLocale() === 'fr' ? logoFr : logoEn);
 
 	const isActive = (href: string) => page.url.pathname.endsWith(href);
 
@@ -56,7 +60,10 @@
 							rel="noopener noreferrer"
 							class="text-text-secondary underline underline-offset-2 transition-colors hover:text-text-primary"
 						>
-							CO2.js
+							CO2.js<ExternalLink
+								class="ml-1 inline-block size-[0.9em] align-[-0.1em] no-underline"
+								aria-hidden="true"
+							/>
 						</a>
 					</p>
 				</div>
@@ -84,9 +91,9 @@
 						{#each secondary as item (item.href)}
 							<li>
 								<a
-									href={localizeHref(item.href)}
-									aria-current={isActive(item.href) ? 'page' : undefined}
-									class="text-base transition-colors {isActive(item.href)
+									href={item.external ? item.href : localizeHref(item.href)}
+									aria-current={!item.external && isActive(item.href) ? 'page' : undefined}
+									class="text-base transition-colors {!item.external && isActive(item.href)
 										? 'text-text-primary underline decoration-1 underline-offset-8'
 										: 'text-text-secondary hover:text-text-primary'}"
 								>

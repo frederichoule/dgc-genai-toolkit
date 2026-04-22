@@ -44,6 +44,9 @@ const config = {
 				...config,
 				include: [...config.include, '../drizzle.config.ts']
 			})
+		},
+		version: {
+			pollInterval: 10 * 60 * 1000
 		}
 	}
 };

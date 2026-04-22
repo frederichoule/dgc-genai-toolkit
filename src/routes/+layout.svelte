@@ -5,6 +5,7 @@
 	import type { Pathname } from '$app/types';
 	import Footer from '$lib/components/Footer.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
+	import UpdateToast from '$lib/components/UpdateToast.svelte';
 	import { initCo2Tracker } from '$lib/co2/tracker.svelte';
 	import { deLocalizeHref, getLocale, locales, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
@@ -89,6 +90,7 @@
 		</main>
 		<Footer />
 	{/if}
+	<UpdateToast />
 </div>
 
 <div style="display:none">

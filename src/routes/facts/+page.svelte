@@ -155,12 +155,12 @@
 
 	const pdfs: Record<'en' | 'fr', { href: string; size: string }> = {
 		en: {
-			href: '/pdf/FactSheet%20(PDF%20EN)_compressed.pdf',
-			size: '0.5 Mo'
+			href: '/pdf/FactSheet%20(PDF%20EN).pdf',
+			size: '0.8 Mo'
 		},
 		fr: {
-			href: '/pdf/FactSheet%20(PDF%20FR)_compressed.pdf',
-			size: '0.5 Mo'
+			href: '/pdf/FactSheet%20(PDF%20FR).pdf',
+			size: '0.9 Mo'
 		}
 	};
 	const pdf = $derived(pdfs[data.locale as 'en' | 'fr']);

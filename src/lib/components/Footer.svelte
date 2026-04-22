@@ -122,10 +122,20 @@
 
 		<div class="mt-24 flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-text-tertiary">
 			<span>{m.footer_copyright({ year })}</span>
-			<a href={localizeHref('/legals')} class="transition-colors hover:text-text-primary">
+			<a
+				href="https://www.dgc.ca/en/national/legal"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="transition-colors hover:text-text-primary"
+			>
 				{m.footer_legals()}
 			</a>
-			<a href={localizeHref('/privacy')} class="transition-colors hover:text-text-primary">
+			<a
+				href="https://www.dgc.ca/en/national/privacy-policy"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="transition-colors hover:text-text-primary"
+			>
 				{m.footer_privacy()}
 			</a>
 			<button
